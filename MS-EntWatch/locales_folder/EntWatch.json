@@ -1,0 +1,497 @@
+{
+	"EntWatch.Cvar.Notify": {
+		"en-us": "Cvar '{0}' has been changed to '{1}'",
+		"ru-ru": "Переменная '{0}' была изменёна на '{1}'",
+		"zh-cn": "Cvar '{0}' 已更改为 '{1}'"
+	},
+	"EntWatch.Cvar.Notify.Clients": {
+		"en-us": "{0}Cvar '{1}{2}{0}' has been changed to '{1}{3}{0}'",
+		"ru-ru": "{0}Переменная '{1}{2}{0}' была изменёна на '{1}{3}{0}'",
+		"zh-cn": "{0}Cvar '{1}{2}{0}' 已更改为 '{1}{3}{0}'"
+	},
+	"EntWatch.Info.ChangeMap": {
+		"en-us": "The server changed the map to {0}",
+		"ru-ru": "Сервер сменил карту на {0}",
+		"zh-cn": "服务器已更换地图为 {0}"
+	},
+	"EntWatch.Info.Cfg.Loading": {
+		"en-us": "Loading EntWatch Config from {0}",
+		"ru-ru": "Загрузка конфигурации EntWatch из {0}",
+		"zh-cn": "正在从 {0} 加载 EntWatch 配置"
+	},
+	"EntWatch.Info.Cfg.NotFound": {
+		"en-us": "Map haven't a EntWatch Config",
+		"ru-ru": "Карта не имеет конфигурации EntWatch",
+		"zh-cn": "地图没有 EntWatch 配置"
+	},
+	"EntWatch.Info.Error": {
+		"en-us": "Error: {0}",
+		"ru-ru": "Ошибка: {0}",
+		"zh-cn": "错误: {0}"
+	},
+	"EntWatch.Info.DB.Success": {
+		"en-us": "Database connection established. Type of DB: {0}",
+		"ru-ru": "Соединение с базой данных установлено. Тип БД: {0}",
+		"zh-cn": "数据库连接已建立。数据库类型: {0}"
+	},
+	"EntWatch.Info.DB.Failed": {
+		"en-us": "No connection to database. Type of DB: {0}",
+		"ru-ru": "Нет соединения с базой данных. Тип БД: {0}",
+		"zh-cn": "无法连接到数据库。数据库类型: {0}"
+	},
+	"EntWatch.Info.Eban.PlayerConnect": {
+		"en-us": "\tPlayer: {0} has an e-ban\n\t\tDuration: {1}\n\t\tTimeIssued: {2}\n\t\tAdmin: {3}\n\t\tReason: {4}",
+		"ru-ru": "\tИгрок: {0} имеет eban\n\t\tДлительность: {1}\n\t\tИстекает: {2}\n\t\tАдмин: {3}\n\t\tПричина: {4}",
+		"zh-cn": "\t玩家: {0} 已被禁止\n\t\t时长: {1}\n\t\t时间: {2}\n\t\t管理员: {3}\n\t\t原因: {4}"
+	},
+	"EntWatch.Info.Eban.Success": {
+		"en-us": "Ban successfully added to database",
+		"ru-ru": "Бан успешно добавлен в базу данных",
+		"zh-cn": "封禁已成功添加到数据库"
+	},
+	"EntWatch.Info.Error.NotFoundInDictionary": {
+		"en-us": "{{red}}Player not found in dictionary",
+		"ru-ru": "{{red}}Игрок не найден в словаре",
+		"zh-cn": "{{red}}在字典中找不到该玩家。"
+	},
+	"EntWatch.Info.Error.MinArg": {
+		"en-us": "{{orange}}Min. number of arguments: {{green}}{0}{{orange}}. Usage: {{green}}{1} {2}",
+		"ru-ru": "{{orange}}Мин.кол-во аргументов: {{green}}{0}{{orange}}. Используйте: {{green}}{1} {2}",
+		"zh-cn": "{{orange}}最小参数数量: {{green}}{0}{{orange}}. 用法: {{green}}{1} {2}"
+	},
+	"EntWatch.Info.Scheme.Loading": {
+		"en-us": "Loading EntWatch Scheme from {0}",
+		"ru-ru": "Загрузка схемы EntWatch из {0}",
+		"zh-cn": "正在从 {0} 加载 EntWatch 方案"
+	},
+	"EntWatch.Info.Scheme.NotFound": {
+		"en-us": "Can not found EntWatch Scheme",
+		"ru-ru": "Схема EntWatch не найдена",
+		"zh-cn": "找不到 EntWatch 方案"
+	},
+	"EntWatch.Info.Item.Spawn": {
+		"en-us": "Spawned: {0} WeaponID: {1}",
+		"ru-ru": "Заспавлен: {0} ID оружия: {1}",
+		"zh-cn": "已生成: {0} 武器ID: {1}"
+	},
+	"EntWatch.Info.MapCommands.SetCooldown": {
+		"en-us": "Set cooldown for ButtonID: {0} Cooldown: {1} ForceApply: {2}",
+		"ru-ru": "Установлен новый кулдаун для ButtonID: {0} Кулдаун: {1} Быстрое применение: {2}",
+		"zh-cn": "设置 ButtonID 的冷却时间: {0} 冷却时间: {1} 强行应用: {2}"
+	},
+	"EntWatch.Info.MapCommands.MaxUses": {
+		"en-us": "Set max uses for ButtonID: {0} Max uses: {1} Even if over: {2}",
+		"ru-ru": "Установлено новое количество максимальных использований для ButtonID: {0} Количество: {1} Даже если закончилось: {2}",
+		"zh-cn": "设置 ButtonID 的最大使用次数: {0} 最大使用次数: {1} 即使超过: {2}"
+	},
+	"EntWatch.Info.MapCommands.SetCurrentUses": {
+		"en-us": "Set current uses for ButtonID: {0} Current uses: {1} Even if over: {2}",
+		"ru-ru": "Установлено новое количество текущих использований для ButtonID: {0} Количество: {1} Даже если закончилось: {2}",
+		"zh-cn": "设置 ButtonID 的当前使用情况：{0} 当前使用情况：{1} 即使超过：{2}"
+	},
+	"EntWatch.Info.MapCommands.AddMaxUses": {
+		"en-us": "Add(+1) maxuses for ButtonID: {0} Even if over: {1}",
+		"ru-ru": "Добавлено(+1) к максимальному количеству использований для ButtonID: {0} Даже если закончилось: {1}",
+		"zh-cn": "为 ButtonID 添加 (+1) 个最大使用次数：{0} 即使超过：{1}"
+	},
+	"EntWatch.Info.MapCommands.SetMode": {
+		"en-us": "Set new mode for ButtonID: {0} Mode: {1} Cooldown: {2} Max uses: {3} Even if over: {4}",
+		"ru-ru": "Установлен новый мод для ButtonID: {0} Мод: {1} Кулдаун: {2} Количество использований: {3} Даже если закончилось: {4}",
+		"zh-cn": "设置 ButtonID 新模式：{0} 模式：{1} 冷却时间：{2} 最大使用次数：{3} 即使超过：{4}"
+	},
+	"EntWatch.Info.MapCommands.LockButton": {
+		"en-us": "Set new lock for ButtonID {0} Value: {1}",
+		"ru-ru": "Установлен запрет на использование для ButtonID {0} Значение: {1}",
+		"zh-cn": "为 ButtonID {0} 值设置新锁: {1}"
+	},
+	"EntWatch.Info.MapCommands.SetAbilityName": {
+		"en-us": "Set new ability name for ButtonID: {0} New name: {1}",
+		"ru-ru": "Установлено новое имя способности для ButtonID: {0} Имя: {1}",
+		"zh-cn": "为 ButtonID: {0} 设置新能力名称 新名称: {1}"
+	},
+	"EntWatch.Info.MapCommands.SetFullName": {
+		"en-us": "Set new name for Weapon HammerID: {0} New name: {1}",
+		"ru-ru": "Установлено новое имя для оружия с HammerID: {0} Имя: {1}",
+		"zh-cn": "为武器 HammerID: {0} 设置新名称 新名称: {1}"
+	},
+	"EntWatch.Info.MapCommands.SetShortName": {
+		"en-us": "Set new short name for Weapon HammerID: {0} New short name: {1}",
+		"ru-ru": "Установлено новое короткое имя для оружия с HammerID: {0} Имя: {1}",
+		"zh-cn": "为武器 HammerID: {0} 设置新短名称 新短名称: {1}"
+	},
+	"EntWatch.Info.MapCommands.Block": {
+		"en-us": "Set block for Weapon HammerID: {0} Value: {1}",
+		"ru-ru": "Установлен запрет на оружие с HammerID: {0} Значение: {1}",
+		"zh-cn": "为武器 HammerID: {0} 设置阻止值: {1}"
+	},
+	"EntWatch.Reply.Reload_configs": {
+		"en-us": "{0}Configs has been reloaded..",
+		"ru-ru": "{0}Конфиги перезагружены...",
+		"zh-cn": "{0}配置已重新加载。"
+	},
+	"EntWatch.Reply.ShowItem.Main": {
+		"en-us": "{0}Item: {1}{2} {0}Index: {1}{3} {0}Owner: {1}{4}",
+		"ru-ru": "{0}Итем: {1}{2} {0}Индекс: {1}{3} {0}Владелец: {1}{4}",
+		"zh-cn": "{0}项目: {1}{2} {0}指数: {1}{3} {0}所有者: {1}{4}"
+	},
+	"EntWatch.Reply.ShowItem.Buttons": {
+		"en-us": "{0}Buttons:",
+		"ru-ru": "{0}Кнопки:",
+		"zh-cn": "{0}按钮:"
+	},
+	"EntWatch.Reply.ShowItem.Ability": {
+		"en-us": "{0}ButtonIndex: {1}{2} {0}Name: {1}{3} {0}ButtonID: {1}{4} {0}ButtonClass: {1}{5} {0}Chat Uses: {1}{6} {0}Mode: {1}{7} {0}MaxUses: {1}{8} {0}CoolDown: {1}{9}{10}",
+		"ru-ru": "{0}ИндексКнопки: {1}{2} {0}Имя: {1}{3} {0}ИДКнопки: {1}{4} {0}КлассКнопки: {1}{5} {0}Исполь.вЧат: {1}{6} {0}Мод: {1}{7} {0}МаксИсполь.: {1}{8} {0}Кулдаун: {1}{9}{10}",
+		"zh-cn": "{0}按钮索引: {1}{2} {0}姓名: {1}{3} {0}ButtonID: {1}{4} {0}按钮类: {1}{5} {0}聊天使用情况: {1}{6} {0}模式: {1}{7} {0}最大用途: {1}{8} {0}冷却: {1}{9}{10}"
+	},
+	"EntWatch.Reply.NullString": {
+		"en-us": "",
+		"ru-ru": "",
+		"zh-cn": ""
+	},
+	"EntWatch.Reply.ShowScheme": {
+		"en-us": "{0}{1}: {2}{3}",
+		"ru-ru": "{0}{1}: {2}{3}",
+		"zh-cn": "{0}{1}: {2}{3}"
+	},
+	"EntWatch.Reply.NotValid": {
+		"en-us": "{0}The value you entered is not valid. Please use help",
+		"ru-ru": "{0}Введённое значение не валидно. Воспользуйтесь помощью",
+		"zh-cn": "{0}您输入的值无效。请使用帮助"
+	},
+	"EntWatch.Reply.Must_be_an_integer": {
+		"en-us": "{0}The entered value must be a number",
+		"ru-ru": "{0}Введенное значение должно быть числом",
+		"zh-cn": "{0}输入的值必须是一个数字"
+	},
+	"EntWatch.Reply.More_than_one_client_matched": {
+		"en-us": "{0}There are multiple clients that match",
+		"ru-ru": "{0}Найдено несколько игроков",
+		"zh-cn": "{0}有多个匹配的客户端。"
+	},
+	"EntWatch.Reply.You_cannot_target": {
+		"en-us": "{0}Since this person's immunity level is higher than yours, you cannot target this person",
+		"ru-ru": "{0}Иммунитет этого игрока выше вашего",
+		"zh-cn": "{0}由于此人的权限级别高于你，你无法针对此人。"
+	},
+	"EntWatch.Reply.No_matching_client": {
+		"en-us": "{0}There is no matching client",
+		"ru-ru": "{0}Игрок не найден",
+		"zh-cn": "{0}没有匹配的客户端。"
+	},
+	"EntWatch.Reply.Hud.Disabled": {
+		"en-us": "{0}The HUD is now {1}Disabled",
+		"ru-ru": "{0}Информация в HUD {1}Отключена",
+		"zh-cn": "{0}HUD 现在是 {1}禁用"
+	},
+	"EntWatch.Reply.Hud.Center": {
+		"en-us": "{0}The HUD is now {1}Enabled (Center)",
+		"ru-ru": "{0}Информация в HUD {1}Включена (Center)",
+		"zh-cn": "{0}HUD 现在是 {1}启用 (Center)"
+	},
+	"EntWatch.Reply.Hud.Alert": {
+		"en-us": "{0}The HUD is now {1}Enabled (Alert)",
+		"ru-ru": "{0}Информация в HUD {1}Включена (Alert)",
+		"zh-cn": "{0}HUD 现在是 {1}启用 (Alert)"
+	},
+	"EntWatch.Reply.Hud.WorldText": {
+		"en-us": "{0}The HUD is now {1}Enabled (WorldText)",
+		"ru-ru": "{0}Информация в HUD {1}Включена (WorldText)",
+		"zh-cn": "{0}HUD 现在是 {1}启用 (WorldText)"
+	},
+	"EntWatch.Reply.Hud.Using_number": {
+		"en-us": "{0}To change the hud, use the number 0-3 [0-Disabled, 1-Center, 2-Alert, 3-WorldText]",
+		"ru-ru": "{0}Для изменения худа используйте номер 0-3 [0-Отключен, 1-Center, 2-Alert, 3-WorldText]",
+		"zh-cn": "{0}要更改 HUD，请使用数字 0-3 [0-禁用, 1-中间, 2-警报, 3-世界文本]"
+	},
+	"EntWatch.Reply.Hud.Position": {
+		"en-us": "{0}Position HUD: {1}X: {2} Y: {3} Z: {4}",
+		"ru-ru": "{0}Позиция HUD: {1}X: {2} Y: {3} Z: {4}",
+		"zh-cn": "{0}HUD 位置: {1}X: {2} Y: {3} Z: {4}"
+	},
+	"EntWatch.Reply.Hud.Color": {
+		"en-us": "{0}Color HUD: {1}R: {2} G: {3} B: {4} A: {5}",
+		"ru-ru": "{0}Цвет HUD: {1}R: {2} G: {3} B: {4} A: {5}",
+		"zh-cn": "{0}HUD 颜色: {1}R: {2} G: {3} B: {4} A: {5}"
+	},
+	"EntWatch.Reply.Hud.Size": {
+		"en-us": "{0}Size HUD: {1}{2}",
+		"ru-ru": "{0}Размер HUD: {1}{2}",
+		"zh-cn": "{0}HUD 尺寸: {1}{2}"
+	},
+	"EntWatch.Reply.Hud.Refresh": {
+		"en-us": "{0}Update HUD every {1}{2} {0}sec",
+		"ru-ru": "{0}HUD обновляется каждые {1}{2} {0}секунд",
+		"zh-cn": "{0}每 {1}{2} {0}秒刷新 HUD"
+	},
+	"EntWatch.Reply.Hud.Sheet": {
+		"en-us": "{0}The sheet displays {1}{2} {0}items",
+		"ru-ru": "{0}На листе отображается {1}{2} {0}итемов",
+		"zh-cn": "{0}该表显示 {1}{2} {0}项目"
+	},
+	"EntWatch.Reply.PlayerInfo.UserID": {
+		"en-us": "{0}Player display format: {1}Nickname and UserID",
+		"ru-ru": "{0}Формат отображения игрока: {1}Ник и UserID",
+		"zh-cn": "{0}玩家显示格式: {1}昵称和用户 ID"
+	},
+	"EntWatch.Reply.PlayerInfo.SteamID": {
+		"en-us": "{0}Player display format: {1}Nickname and SteamID",
+		"ru-ru": "{0}Формат отображения игрока: {1}Ник и SteamID",
+		"zh-cn": "{0}玩家显示格式: {1}昵称和 SteamID"
+	},
+	"EntWatch.Reply.PlayerInfo.Full": {
+		"en-us": "{0}Player display format: {1}Nickname, UserID and SteamID",
+		"ru-ru": "{0}Формат отображения игрока: {1}Ник, UserID и SteamID",
+		"zh-cn": "{0}玩家显示格式: {1}昵称、用户 ID 和 SteamID"
+	},
+	"EntWatch.Reply.PlayerInfo.NicknameOnly": {
+		"en-us": "{0}Player display format: {1}Nickname only",
+		"ru-ru": "{0}Формат отображения игрока: {1}Только ник",
+		"zh-cn": "{0}玩家显示格式: {1}仅限昵称"
+	},
+	"EntWatch.Reply.Use_Priority.Enabled": {
+		"en-us": "{0}Forced button press {1}Enabled",
+		"ru-ru": "{0}Принудительное нажатие на кнопку {1}Включено",
+		"zh-cn": "{0}强制按钮按下 {1}启用"
+	},
+	"EntWatch.Reply.Use_Priority.Disabled": {
+		"en-us": "{0}Forced button press {1}Disabled",
+		"ru-ru": "{0}Принудительное нажатие на кнопку {1}Отключено",
+		"zh-cn": "{0}强制按钮按下 {1}禁用"
+	},
+	"EntWatch.Reply.Eban.Has_a_Restrict": {
+		"en-us": "{0} {1}is currently restricted",
+		"ru-ru": "{0} {1}имеет запрет на подбор предметов",
+		"zh-cn": "{0} {1}目前被限制"
+	},
+	"EntWatch.Reply.Eban.Can_pickup": {
+		"en-us": "{0} {1}can pick up items",
+		"ru-ru": "{0} {1}может подбирать предметы",
+		"zh-cn": "{0} {1}可以拾取物品"
+	},
+	"EntWatch.Reply.Eban.Access.Permanent": {
+		"en-us": "{0}You do not have access to permanent bans",
+		"ru-ru": "{0}Вы не имеете доступа к пермаментным банам",
+		"zh-cn": "{0}你没有访问永久封禁的权限"
+	},
+	"EntWatch.Reply.Eban.Access.UnPermanent": {
+		"en-us": "{0}You do not have access to permanent unbans",
+		"ru-ru": "{0}Вы не имеете доступа к пермаментным разбанам",
+		"zh-cn": "{0}你没有访问永久解封的权限"
+	},
+	"EntWatch.Reply.Eban.Access.Long": {
+		"en-us": "{0}You do not have access to long bans. Max: {1} minutes",
+		"ru-ru": "{0}Вы не имеете доступа к длительным банам. Максимально: {1} минут",
+		"zh-cn": "{0}你没有访问长时间封禁的权限。最大: {1} 分钟"
+	},
+	"EntWatch.Reply.Eban.Access.Other": {
+		"en-us": "{0}You do not have access to other admins bans",
+		"ru-ru": "{0}Вы не имеете доступа к банам других админов",
+		"zh-cn": "{0}你没有访问其他管理员封禁的权限"
+	},
+	"EntWatch.Reply.Eban.Ban.Success": {
+		"en-us": "{0}Ban successfully added to database",
+		"ru-ru": "{0}Бан успешно добавлен в базу данных",
+		"zh-cn": "{0}封禁已成功添加到数据库"
+	},
+	"EntWatch.Reply.Eban.Ban.Failed": {
+		"en-us": "{0}There was an error adding the ban to the database",
+		"ru-ru": "{0}Произошла ошибка добавления бана в базу данных",
+		"zh-cn": "{0}将封禁添加到数据库时出错"
+	},
+	"EntWatch.Reply.Eban.UnBan.Success": {
+		"en-us": "{0}Ban successfully lifted. Information entered into the database",
+		"ru-ru": "{0}Бан успешно снят. Информация внесена в базу данных",
+		"zh-cn": "{0}封禁已成功解除。信息已输入数据库"
+	},
+	"EntWatch.Reply.Eban.UnBan.Failed": {
+		"en-us": "{0}There was an error removing the ban from the database",
+		"ru-ru": "{0}Произошла ошибка снятия бана в базе данных",
+		"zh-cn": "{0}从数据库中移除封禁时出错"
+	},
+	"EntWatch.Reply.InvalidSteamID": {
+		"en-us": "{0}Invalid SteamID for {1}{2}",
+		"ru-ru": "{0}Неверный SteamID для {1}{2}",
+		"zh-cn": "{0}的 SteamID 无效 {1}{2}"
+	},
+	"EntWatch.Reply.Eban.List": {
+		"en-us": "{0}List of bans:",
+		"ru-ru": "{0}Список банов:",
+		"zh-cn": "{0}封禁列表:"
+	},
+	"EntWatch.Reply.Eban.Player": {
+		"en-us": "{0}***Player: {1}***",
+		"ru-ru": "{0}***Игрок: {1}***",
+		"zh-cn": "{0}***玩家: {1}***"
+	},
+	"EntWatch.Reply.Eban.Admin": {
+		"en-us": "{0}|Admin: {1}",
+		"ru-ru": "{0}|Админ: {1}",
+		"zh-cn": "{0}|管理员: {1}"
+	},
+	"EntWatch.Reply.Eban.Duration.Temporary": {
+		"en-us": "{0}|Duration: {1}Temporary",
+		"ru-ru": "{0}|Длительность: {1}Временный",
+		"zh-cn": "{0}|时长: {1}临时"
+	},
+	"EntWatch.Reply.Eban.Duration.Permanently": {
+		"en-us": "{0}|Duration: {1}Permanently",
+		"ru-ru": "{0}|Длительность: {1}Перманентный",
+		"zh-cn": "{0}|时长: {1}永久"
+	},
+	"EntWatch.Reply.Eban.Duration.Minutes": {
+		"en-us": "{0}|Duration: {1}{2} Minutes",
+		"ru-ru": "{0}|Длительность: {1}{2} минут",
+		"zh-cn": "{0}|时长: {1}{2} 分钟"
+	},
+	"EntWatch.Reply.Eban.Expires": {
+		"en-us": "{0}|Expires|Issued: {1}{2}",
+		"ru-ru": "{0}|Истекает|Выдан: {1}{2}",
+		"zh-cn": "{0}|到期|发出: {1}{2}"
+	},
+	"EntWatch.Reply.Eban.Reason": {
+		"en-us": "{0}|Reason: {1}{2}",
+		"ru-ru": "{0}|Причина: {1}{2}",
+		"zh-cn": "{0}|原因: {1}{2}"
+	},
+	"EntWatch.Reply.Eban.Separator": {
+		"en-us": "{0}|__________________________________________",
+		"ru-ru": "{0}|__________________________________________",
+		"zh-cn": "{0}|__________________________________________"
+	},
+	"EntWatch.Reply.Eban.NoPlayers": {
+		"en-us": "{0}No players",
+		"ru-ru": "{0}Нет игроков",
+		"zh-cn": "{0}没有玩家"
+	},
+	"EntWatch.Reply.Offline.Info": {
+		"en-us": "{0}List of all players:",
+		"ru-ru": "{0}Список всех игроков:",
+		"zh-cn": "{0}所有玩家列表："
+	},
+	"EntWatch.Reply.Offline.OnServer": {
+		"en-us": "{0}{1}. {2}(#{3}/{4}). Last item: {5}. Status: Online",
+		"ru-ru": "{0}{1}. {2}(#{3}/{4}). Последний итем: {5}. Статус: Онлайн",
+		"zh-cn": "{0}{1}. {2}(#{3}/{4}) 。最后物品: {5}。状态：在线"
+	},
+	"EntWatch.Reply.Offline.Leave": {
+		"en-us": "{0}{1}. {2}(#{3}/{4}). Last item: {5}. Status: left {6} minutes ago",
+		"ru-ru": "{0}{1}. {2}(#{3}/{4}). Последний итем: {5}. Статус: вышел {6} минут назад",
+		"zh-cn": "{0}{1}. {2}(#{3}/{4})。最后物品: {5}。状态: {6} 分钟前离开"
+	},
+	"EntWatch.Reply.Transfer.NoItem": {
+		"en-us": "{0}Target has no items",
+		"ru-ru": "{0}Отправитель не имеет итемов",
+		"zh-cn": "{0}目标没有物品"
+	},
+	"EntWatch.Reply.Transfer.NotAllow": {
+		"en-us": "{0}This item is not transferable",
+		"ru-ru": "{0}Данный итем нельзя передавать",
+		"zh-cn": "{0}此物品不可转让"
+	},
+	"EntWatch.Reply.Transfer.AlreadySlot": {
+		"en-us": "{0}The player already owns an item in this slot",
+		"ru-ru": "{0}Игрок уже владеет итемом на данном слоте",
+		"zh-cn": "{0}该玩家在该槽位中已经拥有一个物品。"
+	},
+	"EntWatch.Reply.Transfer.InvalidItemName": {
+		"en-us": "{0}Invalid item name",
+		"ru-ru": "{0}Ошибка в имени итема",
+		"zh-cn": "{0}无效的物品名称"
+	},
+	"EntWatch.Reply.Transfer.AlreadyOwns": {
+		"en-us": "{0}The receiver already owns this item",
+		"ru-ru": "{0}Получатель уже владеет данным итемом",
+		"zh-cn": "{0}接收者已经拥有该物品"
+	},
+	"EntWatch.Reply.Transfer.Differsteam": {
+		"en-us": "{0}The receiver team differs from the target team",
+		"ru-ru": "{0}Получатель и Отправитель находятся в разных командах",
+		"zh-cn": "{0}接收者团队与目标团队不同"
+	},
+	"EntWatch.Reply.Transfer.Notify": {
+		"en-us": "{0} transfered {1} from {2} to player {3}",
+		"ru-ru": "{0} передал {1} от {2} игроку {3}",
+		"zh-cn": "{0} 从 {2} 向玩家 {3} 转移了 {1}"
+	},
+	"EntWatch.Reply.Spawn.NoItem": {
+		"en-us": "{0}Spawn item not found",
+		"ru-ru": "{0}Итем для спавна не найден",
+		"zh-cn": "{0}未找到生成物品"
+	},
+	"EntWatch.Reply.Spawn.ManyItems": {
+		"en-us": "{0}More than one match found:",
+		"ru-ru": "{0}Найдено больше одного совпадения:",
+		"zh-cn": "{0}找到多个匹配项："
+	},
+	"EntWatch.Reply.Spawn.ItemName": {
+		"en-us": "{0}~{1}{2} {0}({1}{3}{0})",
+		"ru-ru": "{0}~{1}{2} {0}({1}{3}{0})",
+		"zh-cn": "{0}~{1}{2} {0}({1}{3}{0})"
+	},
+	"EntWatch.Reply.Spawn.NoCfgSpawner": {
+		"en-us": "{0}Item spawner is not specified in the config",
+		"ru-ru": "{0}Спавнер итема не прописан в конфиге",
+		"zh-cn": "{0}配置中未指定物品生成器"
+	},
+	"EntWatch.Reply.Spawn.NoSpawner": {
+		"en-us": "{0}Item spawner not found",
+		"ru-ru": "{0}Спавнер итема не найден",
+		"zh-cn": "{0}未找到物品生成器"
+	},
+	"EntWatch.Reply.Spawn.BadItemName": {
+		"en-us": "{0}Enter a valid item name",
+		"ru-ru": "{0}Введите корректное имя итема",
+		"zh-cn": "{0}输入有效的物品名称"
+	},
+	"EntWatch.Reply.Spawn.Notify": {
+		"en-us": "{0} spawned {1} for {2}",
+		"ru-ru": "{0} заспавнил {1} для {2}",
+		"zh-cn": "{0} 为 {2} 生成了 {1}"
+	},
+	"EntWatch.Chat.Pickup": {
+		"en-us": "{0} {1}has picked up {2}{3}",
+		"ru-ru": "{0} {1}подобрал {2}{3}",
+		"zh-cn": "{0} {1}捡起了 {2}{3}"
+	},
+	"EntWatch.Chat.Drop": {
+		"en-us": "{0} {1}has dropped {2}{3}",
+		"ru-ru": "{0} {1}выбросил {2}{3}",
+		"zh-cn": "{0} {1}丢下了 {2}{3}"
+	},
+	"EntWatch.Chat.Death": {
+		"en-us": "{0} {1}has died with {2}{3}",
+		"ru-ru": "{0} {1}умер с {2}{3}",
+		"zh-cn": "{0} {1}死亡时携带了 {2}{3}"
+	},
+	"EntWatch.Chat.Disconnect": {
+		"en-us": "{0} {1}disconnected with {2}{3}",
+		"ru-ru": "{0} {1}отключился из игры с {2}{3}",
+		"zh-cn": "{0} {1}断开连接时携带了 {2}{3}"
+	},
+	"EntWatch.Chat.Use": {
+		"en-us": "{0} {1}used {2}{3}{4}",
+		"ru-ru": "{0} {1}использовал {2}{3}{4}",
+		"zh-cn": "{0} {1}使用了 {2}{3}{4}"
+	},
+	"EntWatch.NoPermission": {
+		"en-us": "{0}You have no permission to use this command!",
+		"ru-ru": "{0}Вы не имеете доступа к данной команде!",
+		"zh-cn": "{0}您没有权限使用此命令！"
+	},
+	"EntWatch.Chat.Admin.Restricted": {
+		"en-us": "{0}Admin {1} {2}restricted {3}",
+		"ru-ru": "{0}Админ {1} {2}запретил подбор предметов игроку {3}",
+		"zh-cn": "{0}管理员 {1} {2}限制了 {3}"
+	},
+	"EntWatch.Chat.Admin.Unrestricted": {
+		"en-us": "{0}Admin {1} {2}unrestricted {3}",
+		"ru-ru": "{0}Админ {1} {2}разрешил подбор предметов игроку {3}",
+		"zh-cn": "{0}管理员 {1} {2}解除了对 {3} 的限制"
+	},
+	"EntWatch.Chat.Admin.Reason": {
+		"en-us": "{0}Reason: {1}",
+		"ru-ru": "{0}Причина: {1}",
+		"zh-cn": "{0}原因: {1}"
+	}
+}

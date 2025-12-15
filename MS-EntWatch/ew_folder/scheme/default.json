@@ -1,0 +1,14 @@
+{
+	"Color_tag":		"{green}",
+	"Color_name":		"{default}",
+	"Color_steamid":	"{grey}",
+	"Color_use":		"{lightblue}",
+	"Color_pickup":		"{lime}",
+	"Color_drop":		"{pink}",
+	"Color_disconnect":	"{orange}",
+	"Color_death":		"{orange}",
+	"Color_warning":	"{orange}",
+	"Color_enabled":	"{green}",
+	"Color_disabled":	"{red}",
+	"Server_name":		"Zombies Server"
+}

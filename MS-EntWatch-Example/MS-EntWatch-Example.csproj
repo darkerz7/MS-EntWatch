@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <RootNamespace>MS_EntWatch_Example</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ModSharp.EntWatch.Shared" Version="1.0.0" />
+    <PackageReference Include="ModSharp.Sharp.Shared" Version="2.1.88" />
+  </ItemGroup>
+
+</Project>

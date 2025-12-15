@@ -1,0 +1,48 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <RootNamespace>MS_EntWatch</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <Version>1.0.0</Version>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+	<EntWatch_Shared_Version>1.0.0</EntWatch_Shared_Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ModSharp.AnyBaseLib.Shared" Version="1.0.1" />
+    <PackageReference Include="ModSharp.EntWatch.Shared" Version="$(EntWatch_Shared_Version)" />
+    <PackageReference Include="ModSharp.GameHUD.Shared" Version="1.0.2" />
+    <PackageReference Include="ModSharp.Sharp.Modules.ClientPreferences.Shared" Version="2.1.88" />
+    <PackageReference Include="ModSharp.Sharp.Modules.LocalizerManager.Shared" Version="2.1.88" />
+    <PackageReference Include="ModSharp.Sharp.Shared" Version="2.1.88" />
+    <PackageReference Include="Serilog" Version="4.3.0" />
+    <PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
+  </ItemGroup>
+	
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<Exec Command="if exist $(SolutionDir)build rmdir /s/q $(SolutionDir)build" />
+		<Exec Command="if not exist $(SolutionDir)build mkdir $(SolutionDir)build" />
+		<Exec Command="if not exist $(SolutionDir)build\modules mkdir $(SolutionDir)build\modules" />
+		<Exec Command="if not exist $(SolutionDir)build\modules\$(TargetName) mkdir $(SolutionDir)build\modules\$(TargetName)" />
+		<Exec Command="copy /Y $(TargetDir)$(TargetName).dll $(SolutionDir)build\modules\$(TargetName)\$(TargetName).dll" />
+		<Exec Command="copy /Y $(TargetDir)$(TargetName).deps.json $(SolutionDir)build\modules\$(TargetName)\$(TargetName).deps.json" />
+		
+		<Exec Command="xcopy $(ProjectDir)ew_folder $(SolutionDir)build\modules\$(TargetName) /E /I" />
+
+		<Exec Command="if not exist $(SolutionDir)build\shared mkdir $(SolutionDir)build\shared" />
+		<Exec Command="if not exist $(SolutionDir)build\shared\MS-EntWatch-Shared mkdir $(SolutionDir)build\shared\MS-EntWatch-Shared" />
+
+		<ItemGroup>
+			<EntWatch_Shared_Dll Include="$(NuGetPackageRoot)\modsharp.entwatch.shared\$(EntWatch_Shared_Version)\lib\net10.0\**\*.dll" />
+		</ItemGroup>
+		<Copy SourceFiles="@(EntWatch_Shared_Dll)" DestinationFolder="$(TargetDir)" />
+
+		<Exec Command="copy /Y $(TargetDir)MS-EntWatch-Shared.dll $(SolutionDir)build\shared\MS-EntWatch-Shared\MS-EntWatch-Shared.dll" />
+
+		<Exec Command="if not exist $(SolutionDir)build\locales mkdir $(SolutionDir)build\locales" />
+		<Exec Command="copy /Y $(ProjectDir)locales_folder\EntWatch.json $(SolutionDir)build\locales\EntWatch.json" />
+	</Target>
+
+</Project>

@@ -1,0 +1,246 @@
+[
+	{
+		"Name": "Quicksand",
+		"ShortName": "Quicksand",
+		"Color": "{blue}",
+		"HammerID": "11145",
+		"GlowColor": [0,0,255,255],
+		"BlockPickup": false,
+		"AllowTransfer": true,
+		"ForceDrop": true,
+		"Chat": true,
+		"Hud": true,
+		"TriggerID": "",
+		"UsePriority": true,
+		"AbilityList": [
+			{
+				"Name": "Freeze",
+				"ButtonID": "",
+				"ButtonClass": "func_button",
+				"Filter": "$freeze_player",
+				"Chat_Uses": true,
+				"Mode": 2,
+				"MaxUses": 0,
+				"CoolDown": 60
+			}
+		]
+	},
+	{
+		"Name": "Earth",
+		"ShortName": "Earth",
+		"Color": "{orange}",
+		"HammerID": "11116",
+		"GlowColor": [255,140,0,255],
+		"BlockPickup": false,
+		"AllowTransfer": true,
+		"ForceDrop": true,
+		"Chat": true,
+		"Hud": true,
+		"TriggerID": "",
+		"UsePriority": true,
+		"AbilityList": [
+			{
+				"Name": "",
+				"ButtonID": "",
+				"ButtonClass": "func_button",
+				"Filter": "$item_fire",
+				"Chat_Uses": true,
+				"Mode": 2,
+				"MaxUses": 0,
+				"CoolDown": 60
+			}
+		]
+	},
+	{
+		"Name": "Tornado",
+		"ShortName": "Tornado",
+		"Color": "{default}",
+		"HammerID": "11162",
+		"GlowColor": [255,255,255,255],
+		"BlockPickup": false,
+		"AllowTransfer": true,
+		"ForceDrop": true,
+		"Chat": true,
+		"Hud": true,
+		"TriggerID": "",
+		"UsePriority": true,
+		"AbilityList": [
+			{
+				"Name": "",
+				"ButtonID": "",
+				"ButtonClass": "func_button",
+				"Filter": "$tornado_player",
+				"Chat_Uses": true,
+				"Mode": 2,
+				"MaxUses": 0,
+				"CoolDown": 60
+			}
+		]
+	},
+	{
+		"Name": "Fire",
+		"ShortName": "Fire",
+		"Color": "{red}",
+		"HammerID": "11184",
+		"GlowColor": [255,30,30,255],
+		"BlockPickup": false,
+		"AllowTransfer": true,
+		"ForceDrop": true,
+		"Chat": true,
+		"Hud": true,
+		"TriggerID": "",
+		"UsePriority": true,
+		"AbilityList": [
+			{
+				"Name": "",
+				"ButtonID": "",
+				"ButtonClass": "func_button",
+				"Filter": "$fire_player",
+				"Chat_Uses": true,
+				"Mode": 2,
+				"MaxUses": 0,
+				"CoolDown": 60
+			}
+		]
+	},
+	{
+		"Name": "Heal",
+		"ShortName": "Heal",
+		"Color": "{default}",
+		"HammerID": "11196",
+		"GlowColor": [255,255,255,255],
+		"BlockPickup": false,
+		"AllowTransfer": true,
+		"ForceDrop": true,
+		"Chat": true,
+		"Hud": true,
+		"TriggerID": "",
+		"UsePriority": true,
+		"AbilityList": [
+			{
+				"Name": "",
+				"ButtonID": "",
+				"ButtonClass": "func_button",
+				"Filter": "$heal_player",
+				"Chat_Uses": true,
+				"Mode": 2,
+				"MaxUses": 0,
+				"CoolDown": 60
+			}
+		]
+	},
+	{
+		"Name": "SandStorm",
+		"ShortName": "SandStorm",
+		"Color": "{yellow}",
+		"HammerID": "11127",
+		"GlowColor": [199,223,7,255],
+		"BlockPickup": false,
+		"AllowTransfer": true,
+		"ForceDrop": true,
+		"Chat": true,
+		"Hud": true,
+		"TriggerID": "",
+		"UsePriority": true,
+		"AbilityList": [
+			{
+				"Name": "Ultima",
+				"ButtonID": "",
+				"ButtonClass": "func_button",
+				"Filter": "$sandstorm_player",
+				"Chat_Uses": true,
+				"Mode": 4,
+				"MaxUses": 1,
+				"CoolDown": 1
+			}
+		]
+	},
+	{
+		"Name": "Antlion",
+		"ShortName": "Antlion",
+		"Color": "{lime}",
+		"HammerID": "11895",
+		"GlowColor": [119,234,7,255],
+		"BlockPickup": false,
+		"AllowTransfer": false,
+		"ForceDrop": false,
+		"Chat": true,
+		"Hud": true,
+		"TriggerID": "",
+		"UsePriority": false,
+		"AbilityList": [
+			{
+				"Name": "Attack",
+				"ButtonID": "",
+				"ButtonClass": "game_ui::PressedAttack",
+				"Filter": "$antlion_player",
+				"Chat_Uses": false,
+				"Mode": 2,
+				"MaxUses": 0,
+				"CoolDown": 2
+			},
+			{
+				"Name": "Jump",
+				"ButtonID": "",
+				"ButtonClass": "game_ui::PressedAttack2",
+				"Filter": "$antlion_player",
+				"Chat_Uses": true,
+				"Mode": 2,
+				"MaxUses": 0,
+				"CoolDown": 40
+			}
+		]
+	},
+	{
+		"Name": "[ZM]Dark",
+		"ShortName": "[ZM]Dark",
+		"Color": "{purple}",
+		"HammerID": "11854",
+		"GlowColor": [128,0,128,255],
+		"BlockPickup": false,
+		"AllowTransfer": false,
+		"ForceDrop": false,
+		"Chat": true,
+		"Hud": true,
+		"TriggerID": "11859",
+		"UsePriority": true,
+		"AbilityList": [
+			{
+				"Name": "",
+				"ButtonID": "",
+				"ButtonClass": "func_button",
+				"Filter": "$zdark_zm_player",
+				"Chat_Uses": true,
+				"Mode": 2,
+				"MaxUses": 0,
+				"CoolDown": 60
+			}
+		]
+	},
+	{
+		"Name": "[ZM]Fire",
+		"ShortName": "[ZM]Fire",
+		"Color": "{darkorange}",
+		"HammerID": "11828",
+		"GlowColor": [240,94,35,255],
+		"BlockPickup": false,
+		"AllowTransfer": false,
+		"ForceDrop": false,
+		"Chat": true,
+		"Hud": true,
+		"TriggerID": "11833",
+		"UsePriority": true,
+		"AbilityList": [
+			{
+				"Name": "",
+				"ButtonID": "",
+				"ButtonClass": "func_button",
+				"Filter": "$zfirez_zm_player",
+				"Chat_Uses": true,
+				"Mode": 2,
+				"MaxUses": 0,
+				"CoolDown": 60
+			}
+		]
+	}
+]
