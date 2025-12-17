@@ -455,6 +455,8 @@ namespace MS_EntWatch
             if (!_virtualHook.Install()) return false;
             _virtualHook.Prepare("server", "CTriggerMultiple", vFuncIndex, (nint)(delegate* unmanaged<nint, nint, bool>)(&Hook_CBaseTrigger_PassesTriggerFilters));
             if (!_virtualHook.Install()) return false;
+            _virtualHook.Prepare("server", "CTriggerTeleport", vFuncIndex, (nint)(delegate* unmanaged<nint, nint, bool>)(&Hook_CBaseTrigger_PassesTriggerFilters));
+            if (!_virtualHook.Install()) return false;
             CBaseTrigger_PassesTriggerFilters = (delegate* unmanaged<nint, nint, bool>)_virtualHook.Trampoline;
 
             return true;
