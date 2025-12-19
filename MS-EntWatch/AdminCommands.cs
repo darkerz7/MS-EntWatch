@@ -83,7 +83,7 @@ namespace MS_EntWatch
 
         private ECommandAction OnEWBan(IGameClient client, StringCommand command)
         {
-            if (!client.IsValid || !EW.g_CfgLoaded || EW.g_Scheme == null) return ECommandAction.Stopped;
+            if (!client.IsValid || EW.g_Scheme == null) return ECommandAction.Stopped;
 
             int iArgNeed = 1;
             string sArgHelper = "<#userid|name|#steamid> [<time>] [<reason>]";
@@ -183,7 +183,7 @@ namespace MS_EntWatch
 
         private ECommandAction OnEWUnBan(IGameClient client, StringCommand command)
         {
-            if (!client.IsValid || !EW.g_CfgLoaded || EW.g_Scheme == null) return ECommandAction.Stopped;
+            if (!client.IsValid || EW.g_Scheme == null) return ECommandAction.Stopped;
 
             int iArgNeed = 1;
             string sArgHelper = "<#userid|name|#steamid> [<reason>]";
@@ -310,7 +310,7 @@ namespace MS_EntWatch
 
         private ECommandAction OnEWBanList(IGameClient client, StringCommand command)
         {
-            if (!client.IsValid || !EW.g_CfgLoaded || EW.g_Scheme == null) return ECommandAction.Stopped;
+            if (!client.IsValid || EW.g_Scheme == null) return ECommandAction.Stopped;
 
             UI.ReplyToCommand(client, "EntWatch.Reply.Eban.List", command.ChatTrigger, EW.g_Scheme.Color_warning);
 
@@ -340,7 +340,7 @@ namespace MS_EntWatch
 
         private ECommandAction OnEWList(IGameClient client, StringCommand command)
         {
-            if (!client.IsValid || !EW.g_CfgLoaded || EW.g_Scheme == null) return ECommandAction.Stopped;
+            if (!client.IsValid || EW.g_Scheme == null) return ECommandAction.Stopped;
 
             UI.ReplyToCommand(client, "EntWatch.Reply.Offline.Info", command.ChatTrigger, EW.g_Scheme.Color_warning);
 
