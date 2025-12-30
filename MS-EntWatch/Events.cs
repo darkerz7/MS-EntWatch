@@ -562,32 +562,16 @@ namespace MS_EntWatch
             ClanTag.UpdateClanTag();
         }
 
-        public static void TimerRetry()
-        {
-            //Reban after reload plugin
-            if (EbanDB.db is { bDBReady: true })
-            {
-                Task.Run(() =>
-                {
-                    Parallel.ForEach(EW.g_EWPlayer, (pair) => EbanPlayer.GetBan(pair.Key));
-                });
-                if (EW.g_TimerRetryDB != null)
-                {
-                    _modSharp!.StopTimer((Guid)EW.g_TimerRetryDB);
-                    EW.g_TimerRetryDB = null;
-                }
-            } else
-            {
-                EbanDB.Init_DB();
-            }
-        }
+        public static void TimerRetry() => EbanDB.CheckConnection();
 
         public static void TimerUnban()
         {
             string? sServerName = EW.g_Scheme?.Server_name;
             if (string.IsNullOrEmpty(sServerName)) { sServerName = "Zombies Server"; }
 
-            EbanDB.OfflineUnban(sServerName);
+            int iTime = Convert.ToInt32(DateTimeOffset.UtcNow.ToUnixTimeSeconds());
+
+            EbanDB.OfflineUnban(sServerName, iTime);
 
             Task.Run(() =>
             {
@@ -597,7 +581,11 @@ namespace MS_EntWatch
             //Update (Un)Bans
             Task.Run(() =>
             {
-                Parallel.ForEach(EW.g_EWPlayer, (pair) => EbanPlayer.GetBan(pair.Key));
+                Parallel.ForEach(EW.g_EWPlayer, (pair) =>
+                {
+                    if (pair.Value.BannedPlayer.iDuration > 0 && pair.Value.BannedPlayer.iTimeStamp_Issued < iTime) pair.Value.BannedPlayer.bBanned = false;
+                    EbanPlayer.GetBan(pair.Key);
+                });
             });
         }
     }

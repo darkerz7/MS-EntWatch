@@ -15,17 +15,17 @@ namespace MS_EntWatch
 
         readonly EbanDB.GetBanAPIFunc GetBanAPI_Handler = (sClientSteamID, DBQuery_Result) =>
         {
-            if (DBQuery_Result.Count > 0)
+            if (DBQuery_Result is { } result && result.Count > 0 && result[0] is { } r0)
             {
                 SEWAPI_Ban target = new()
                 {
                     bBanned = true,
-                    sAdminName = DBQuery_Result[0][0],
-                    sAdminSteamID = DBQuery_Result[0][1],
-                    iDuration = Convert.ToInt32(DBQuery_Result[0][2]),
-                    iTimeStamp_Issued = Convert.ToInt32(DBQuery_Result[0][3]),
-                    sReason = DBQuery_Result[0][4],
-                    sClientName = DBQuery_Result[0][5],
+                    sAdminName = r0[0] ?? "Console",
+                    sAdminSteamID = r0[1] ?? "Server",
+                    iDuration = Convert.ToInt32(r0[2] ?? $"{Cvar.BanTime}"),
+                    iTimeStamp_Issued = Convert.ToInt32(r0[3] ?? $"{Convert.ToInt32(DateTimeOffset.UtcNow.ToUnixTimeSeconds())}"),
+                    sReason = r0[4] ?? Cvar.BanReason,
+                    sClientName = r0[5] ?? "",
                     sClientSteamID = sClientSteamID
                 };
                 EW.g_cAPI.IsClientBannedResult(target);

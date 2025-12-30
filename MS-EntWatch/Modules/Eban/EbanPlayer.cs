@@ -96,15 +96,15 @@ namespace MS_EntWatch.Modules.Eban
         {
             if (player.IsValid && EW.CheckDictionary(player))
             {
-                if (DBQuery_Result.Count > 0)
+                if (DBQuery_Result is { } result && result.Count > 0 && result[0] is { } r0)
                 {
                     EW.g_EWPlayer[player].BannedPlayer.bBanned = true;
                     EW.g_EWPlayer[player].BannedPlayer.bBanTrigger = true;
-                    EW.g_EWPlayer[player].BannedPlayer.sAdminName = DBQuery_Result[0][0];
-                    EW.g_EWPlayer[player].BannedPlayer.sAdminSteamID = DBQuery_Result[0][1];
-                    EW.g_EWPlayer[player].BannedPlayer.iDuration = Convert.ToInt32(DBQuery_Result[0][2]);
-                    EW.g_EWPlayer[player].BannedPlayer.iTimeStamp_Issued = Convert.ToInt32(DBQuery_Result[0][3]);
-                    EW.g_EWPlayer[player].BannedPlayer.sReason = DBQuery_Result[0][4];
+                    EW.g_EWPlayer[player].BannedPlayer.sAdminName = r0[0] ?? "Console";
+                    EW.g_EWPlayer[player].BannedPlayer.sAdminSteamID = r0[1] ?? "Server";
+                    EW.g_EWPlayer[player].BannedPlayer.iDuration = Convert.ToInt32(r0[2] ?? $"{Cvar.BanTime}");
+                    EW.g_EWPlayer[player].BannedPlayer.iTimeStamp_Issued = Convert.ToInt32(r0[3] ?? $"{Convert.ToInt32(DateTimeOffset.UtcNow.ToUnixTimeSeconds())}");
+                    EW.g_EWPlayer[player].BannedPlayer.sReason = r0[4] ?? Cvar.BanReason;
                     if (bShow)
                     {
                         UI.EWSysInfo("EntWatch.Info.Eban.PlayerConnect", 4, UI.ReplaceColorTags(UI.PlayerInfoFormat(player)[3], false), EW.g_EWPlayer[player].BannedPlayer.iDuration, EW.g_EWPlayer[player].BannedPlayer.iTimeStamp_Issued, UI.ReplaceColorTags(UI.PlayerInfoFormat(EW.g_EWPlayer[player].BannedPlayer.sAdminName, EW.g_EWPlayer[player].BannedPlayer.sAdminSteamID)[3], false), EW.g_EWPlayer[player].BannedPlayer.sReason);

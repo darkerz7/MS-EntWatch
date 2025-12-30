@@ -31,11 +31,11 @@ Notify players about entity interactions
 1. [ModSharp](https://github.com/Kxnrl/modsharp-public)
 2. [ClientPreferences](https://github.com/Kxnrl/modsharp-public/tree/master/Sharp.Modules/ClientPreferences)
 3. [LocalizerManager](https://github.com/Kxnrl/modsharp-public/tree/master/Sharp.Modules/LocalizerManager)
-4. [AnyBaseLib](https://github.com/darkerz7/MS-AnyBaseLib-Shared)
+4. [AnyBaseLibNext](https://github.com/darkerz7/MS-AnyBaseLibNext-Shared)
 5. [GameHUD](https://github.com/darkerz7/MS-GameHUD)
 
 ## Installation:
-1. Install `ClientPreferences`, `LocalizerManager`, `MS-AnyBaseLib-Shared` and `MS-GameHUD`
+1. Install `ClientPreferences`, `LocalizerManager`, `MS-AnyBaseLibNext-Shared` and `MS-GameHUD`
 2. Compile or copy MS-EntWatch to `sharp/modules/MS-EntWatch` folger
 3. Copy and configure the configuration file `db_config.json` and `log_config.json` to `sharp/modules/MS-EntWatch` folger
 4. Copy `EntWatch.json` to `sharp/locales` folger

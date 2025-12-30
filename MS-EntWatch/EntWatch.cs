@@ -139,6 +139,7 @@ namespace MS_EntWatch
             EW.RemoveTimers();
             _callback?.Dispose();
             UnRegisterCvars();
+            EbanDB.db?.AnyDB.UnSet();
         }
 
         public void OnResourcePrecache() //Precache

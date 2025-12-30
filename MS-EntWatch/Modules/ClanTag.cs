@@ -20,6 +20,7 @@ namespace MS_EntWatch.Modules
         {
             if (Cvar.ClanTag)
             {
+                ItemTest.Owner?.GetPlayerController()?.Score = 9999;
                 ConstructClanTag(ItemTest);
             }
         }
@@ -28,6 +29,7 @@ namespace MS_EntWatch.Modules
         {
             if (Cvar.ClanTag)
             {
+                player.Score = 0;
                 SetClan(player, "");
             }
         }
