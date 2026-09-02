@@ -2,7 +2,6 @@
 using MS_EntWatch.Helpers;
 using MS_EntWatch.Modules.Eban;
 using MS_EntWatch_Shared;
-using MS_GameHUD_Shared;
 using Sharp.Modules.AdminManager.Shared;
 using Sharp.Modules.ClientPreferences.Shared;
 using Sharp.Modules.LocalizerManager.Shared;
@@ -42,6 +41,7 @@ namespace MS_EntWatch
             _dllPath = dllPath;
             _sharpPath = sharpPath;
             _virtualHook = _hooks.CreateVirtualHook();
+            _panorama = sharedSystem.GetPanoramaManager();
         }
 #pragma warning disable CA2211
         public static IModSharp? _modSharp;
@@ -58,11 +58,11 @@ namespace MS_EntWatch
         private IDisposable? _callback;
         private readonly IVirtualHook _virtualHook;
         public static ITargetingManager? _targetingManager;
+        public static IPanoramaManager? _panorama;
 #pragma warning restore CA2211
 
         private static IModSharpModuleInterface<ILocalizerManager>? _localizer;
         private IModSharpModuleInterface<IClientPreference>? _icp;
-        private static IModSharpModuleInterface<IGameHUDAPI>? _igamehud;
         private static IModSharpModuleInterface<IAdminManager>? _adminManager;
         private static bool _AMInit = false;
 
@@ -87,11 +87,11 @@ namespace MS_EntWatch
         public void PostInit()
         {
             _modules!.RegisterSharpModuleInterface<IEntWatchAPI>(this, IEntWatchAPI.Identity, EW.g_cAPI);
-            _entities!.HookEntityOutput("func_button", "OnPressed");
-            _entities!.HookEntityOutput("func_rot_button", "OnPressed");
-            _entities!.HookEntityOutput("func_door", "OnOpen");
-            _entities!.HookEntityOutput("func_door_rotating", "OnOpen");
-            _entities!.HookEntityOutput("func_physbox", "OnPlayerUse");
+            EW.AddHookOutput("func_button", "OnPressed");
+            EW.AddHookOutput("func_rot_button", "OnPressed");
+            EW.AddHookOutput("func_door", "OnOpen");
+            EW.AddHookOutput("func_door_rotating", "OnOpen");
+            EW.AddHookOutput("func_physbox", "OnPlayerUse");
             _entities!.HookEntityInput("logic_case", "InValue");
             _modSharp!.PushTimer(OnEntityTransmit, 5.0, GameTimerFlags.Repeatable);
             TryResolveTargetingManager();
@@ -103,7 +103,6 @@ namespace MS_EntWatch
             GetClientPrefs();
             GetLocalizer()?.LoadLocaleFile("EntWatch");
             LogManager.LoadConfig();
-            GetGameHUD();
             EW.InitTimers();
             EbanDB.Init_DB();
             TryResolveTargetingManager();
@@ -113,7 +112,6 @@ namespace MS_EntWatch
         public void OnLibraryConnected(string name)
         {
             if (name.Equals("ClientPreferences")) GetClientPrefs();
-            if (name.Equals("GameHUD")) GetGameHUD();
             if (name.Equals("Sharp.Modules.TargetingManager", StringComparison.OrdinalIgnoreCase)) TryResolveTargetingManager();
             if (name.Equals("Sharp.Modules.AdminManager", StringComparison.OrdinalIgnoreCase)) TryResolveAdminManager();
         }
@@ -121,7 +119,6 @@ namespace MS_EntWatch
         public void OnLibraryDisconnect(string name)
         {
             if (name.Equals("ClientPreferences")) _icp = null;
-            if (name.Equals("GameHUD")) _igamehud = null;
             if (name.Equals("Sharp.Modules.TargetingManager", StringComparison.OrdinalIgnoreCase))
             {
                 _targetingManager = null;
@@ -256,11 +253,6 @@ namespace MS_EntWatch
                 if (_icp?.Instance is { } instance) _callback = instance.ListenOnLoad(OnCookieLoad);
             }
             return _icp?.Instance;
-        }
-        public static IGameHUDAPI? GetGameHUD()
-        {
-            if (_igamehud?.Instance is null) _igamehud = _modules!.GetOptionalSharpModuleInterface<IGameHUDAPI>(IGameHUDAPI.Identity);
-            return _igamehud?.Instance;
         }
 
         private static void TryResolveTargetingManager()

@@ -5,6 +5,7 @@ using Sharp.Shared.Enums;
 using Sharp.Shared.GameEntities;
 using Sharp.Shared.Objects;
 using Sharp.Shared.Types;
+using System.Collections.Frozen;
 using System.Globalization;
 using System.Text.Json;
 
@@ -27,7 +28,9 @@ namespace MS_EntWatch
 
         public static Dictionary<IGameClient, EWPlayer> g_EWPlayer = [];
         public static List<OfflineBan> g_OfflinePlayer = [];
-
+        readonly static HashSet<(string, string)> g_HookedOutputs = [];
+        readonly static HashSet<string> g_HookOutput_TrackedClasses = [];
+        static ICustomHudLayout? g_CustomHudLayout = null;
         public static CultureInfo cultureEN = new("en-EN");
 
         public static void InitTimers()
@@ -141,6 +144,12 @@ namespace MS_EntWatch
                     UI.EWSysInfo("EntWatch.Info.Error", 15, $"Bad Config file for {(Cvar.LowerMapname ? mapname.ToLower() : mapname)}!");
                     UI.EWSysInfo("EntWatch.Info.Error", 15, $"{e.Message}");
                     g_CfgLoaded = false;
+                }
+                if (g_CfgLoaded && g_ItemConfig is { })
+                {
+                    foreach (ItemConfig ItemTest in g_ItemConfig.ToList())
+                        foreach (Ability AbilityTest in ItemTest.AbilityList.ToList())
+                            AddHookOutput(AbilityTest.ButtonClass, AbilityTest.Event);
                 }
             }
         }
@@ -291,8 +300,76 @@ namespace MS_EntWatch
 
             foreach (var client in EntWatch._clients!.GetGameClients(true).ToArray())
             {
-                if (CheckDictionary(client) && g_EWPlayer[client].HudPlayer != null && client.GetPlayerController() is { } player) g_EWPlayer[client].HudPlayer.ConstructString(player);
+                if (CheckDictionary(client) && g_EWPlayer[client].HudPlayer != null && client.GetPlayerController() is { } player) g_EWPlayer[client].HudPlayer.UpdateHUD(player);
             }
+        }
+
+        public static void AddHookOutput(string classname, string output)
+        {
+            if (string.IsNullOrEmpty(output) || string.IsNullOrEmpty(classname)) return;
+
+            string sClassname_Lower = classname.ToLower();
+
+            if (HookOutput_ValidClassList.Contains(sClassname_Lower))
+            {
+                string sOutput_Lower = output.ToLower();
+                if (g_HookedOutputs.Add((sClassname_Lower, sOutput_Lower)))
+                {
+                    EntWatch._entities!.HookEntityOutput(sClassname_Lower, sOutput_Lower);
+                    g_HookOutput_TrackedClasses.Add(sClassname_Lower);
+                }
+            }
+        }
+
+        public static bool HookOutput_CheckTrackedClasses(string classname)
+        {
+            if (string.IsNullOrEmpty(classname)) return false;
+
+            return g_HookOutput_TrackedClasses.Contains(classname.ToLower());
+        }
+
+        static readonly FrozenSet<string> HookOutput_ValidClassList = [
+            "func_button",
+            "func_physbox",
+            "func_door",
+            "func_rot_button",
+            "func_door_rotating",
+            "logic_case",
+            "logic_relay",
+            "logic_timer",
+            "logic_branch_listener",
+            "logic_branch",
+            "logic_compare",
+            "math_counter",
+            "trigger_gravity",
+            "trigger_hurt",
+            "trigger_look",
+            "trigger_multiple",
+            "trigger_once",
+            "trigger_push",
+            "trigger_teleport",
+            "trigger_wind",
+            "env_entity_maker",
+            "point_template",
+            "filter_activator_attribute_int",
+            "filter_activator_class",
+            "filter_activator_context",
+            "filter_activator_model",
+            "filter_activator_name",
+            "filter_multi",
+            "filter_activator_team",
+            "func_breakable"
+            ];
+
+        public static ICustomHudLayout? GetorCreateHudLayout()
+        {
+            if (g_CustomHudLayout != null) return g_CustomHudLayout;
+            return g_CustomHudLayout = EntWatch._panorama!.CreateLayout("panorama/layout/custom_game/entwatch_dz.vxml_c");
+        }
+
+        public static void RemoveHudLayout()
+        {
+            g_CustomHudLayout = null;
         }
 
         public static string? ConvertSteamID64ToSteamID(string steamId64)
@@ -305,6 +382,7 @@ namespace MS_EntWatch
             }
             return null;
         }
+
         public static float Distance(Vector point1, Vector point2)
         {
             float dx = point2.X - point1.X;

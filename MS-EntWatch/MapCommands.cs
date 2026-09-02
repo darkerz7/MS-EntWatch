@@ -23,16 +23,16 @@ namespace MS_EntWatch
 
         void UnRegMapCommands()
         {
-            _convars.ReleaseCommand("ew_setcooldown");
-            _convars.ReleaseCommand("ew_setmaxuses");
-            _convars.ReleaseCommand("ew_setuses");
-            _convars.ReleaseCommand("ew_addmaxuses");
-            _convars.ReleaseCommand("ew_setmode");
-            _convars.ReleaseCommand("ew_lockbutton");
-            _convars.ReleaseCommand("ew_setabilityname");
-            _convars.ReleaseCommand("ew_setname");
-            _convars.ReleaseCommand("ew_setshortname");
-            _convars.ReleaseCommand("ew_block");
+            _convars.ReleaseServerCommandCallback("ew_setcooldown", OnEWMC_SetCooldown);
+            _convars.ReleaseServerCommandCallback("ew_setmaxuses", OnEWMC_SetMaxUses);
+            _convars.ReleaseServerCommandCallback("ew_setuses", OnEWMC_SetUses);
+            _convars.ReleaseServerCommandCallback("ew_addmaxuses", OnEWMC_AddMaxUses);
+            _convars.ReleaseServerCommandCallback("ew_setmode", OnEWMC_SetMode);
+            _convars.ReleaseServerCommandCallback("ew_lockbutton", OnEWMC_LockButton);
+            _convars.ReleaseServerCommandCallback("ew_setabilityname", OnEWMC_SetAbilityName);
+            _convars.ReleaseServerCommandCallback("ew_setname", OnEWMC_SetFullName);
+            _convars.ReleaseServerCommandCallback("ew_setshortname", OnEWMC_SetShortName);
+            _convars.ReleaseServerCommandCallback("ew_block", OnEWMC_Block);
         }
 
         private ECommandAction OnEWMC_SetCooldown(StringCommand command) //<hammerid> <buttonid> <new cooldown> [<force apply>]

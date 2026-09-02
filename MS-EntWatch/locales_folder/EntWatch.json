@@ -184,35 +184,20 @@
 		"ru-ru": "{0}Информация в HUD {1}Отключена",
 		"zh-cn": "{0}HUD 现在是 {1}禁用"
 	},
-	"EntWatch.Reply.Hud.Center": {
-		"en-us": "{0}The HUD is now {1}Enabled (Center)",
-		"ru-ru": "{0}Информация в HUD {1}Включена (Center)",
-		"zh-cn": "{0}HUD 现在是 {1}启用 (Center)"
+	"EntWatch.Reply.Hud.Enabled": {
+		"en-us": "{0}The HUD is now {1}Enabled",
+		"ru-ru": "{0}Информация в HUD {1}Включена",
+		"zh-cn": "{0}HUD 现在是 {1}启用"
 	},
-	"EntWatch.Reply.Hud.Alert": {
-		"en-us": "{0}The HUD is now {1}Enabled (Alert)",
-		"ru-ru": "{0}Информация в HUD {1}Включена (Alert)",
-		"zh-cn": "{0}HUD 现在是 {1}启用 (Alert)"
+	"EntWatch.Reply.Capture.Disabled": {
+		"en-us": "{0}Mouse capture {1}Disabled",
+		"ru-ru": "{0}Захват мыши {1}Отключен",
+		"zh-cn": "{0}电脑鼠标捕获 {1}禁用"
 	},
-	"EntWatch.Reply.Hud.WorldText": {
-		"en-us": "{0}The HUD is now {1}Enabled (WorldText)",
-		"ru-ru": "{0}Информация в HUD {1}Включена (WorldText)",
-		"zh-cn": "{0}HUD 现在是 {1}启用 (WorldText)"
-	},
-	"EntWatch.Reply.Hud.Using_number": {
-		"en-us": "{0}To change the hud, use the number 0-3 [0-Disabled, 1-Center, 2-Alert, 3-WorldText]",
-		"ru-ru": "{0}Для изменения худа используйте номер 0-3 [0-Отключен, 1-Center, 2-Alert, 3-WorldText]",
-		"zh-cn": "{0}要更改 HUD，请使用数字 0-3 [0-禁用, 1-中间, 2-警报, 3-世界文本]"
-	},
-	"EntWatch.Reply.Hud.Position": {
-		"en-us": "{0}Position HUD: {1}X: {2} Y: {3} Z: {4}",
-		"ru-ru": "{0}Позиция HUD: {1}X: {2} Y: {3} Z: {4}",
-		"zh-cn": "{0}HUD 位置: {1}X: {2} Y: {3} Z: {4}"
-	},
-	"EntWatch.Reply.Hud.Color": {
-		"en-us": "{0}Color HUD: {1}R: {2} G: {3} B: {4} A: {5}",
-		"ru-ru": "{0}Цвет HUD: {1}R: {2} G: {3} B: {4} A: {5}",
-		"zh-cn": "{0}HUD 颜色: {1}R: {2} G: {3} B: {4} A: {5}"
+	"EntWatch.Reply.Capture.Enabled": {
+		"en-us": "{0}Mouse capture {1}Enabled",
+		"ru-ru": "{0}Захват мыши {1}Включен",
+		"zh-cn": "{0}电脑鼠标捕获 {1}启用"
 	},
 	"EntWatch.Reply.Hud.Size": {
 		"en-us": "{0}Size HUD: {1}{2}",
@@ -223,11 +208,6 @@
 		"en-us": "{0}Update HUD every {1}{2} {0}sec",
 		"ru-ru": "{0}HUD обновляется каждые {1}{2} {0}секунд",
 		"zh-cn": "{0}每 {1}{2} {0}秒刷新 HUD"
-	},
-	"EntWatch.Reply.Hud.Sheet": {
-		"en-us": "{0}The sheet displays {1}{2} {0}items",
-		"ru-ru": "{0}На листе отображается {1}{2} {0}итемов",
-		"zh-cn": "{0}该表显示 {1}{2} {0}项目"
 	},
 	"EntWatch.Reply.PlayerInfo.UserID": {
 		"en-us": "{0}Player display format: {1}Nickname and UserID",

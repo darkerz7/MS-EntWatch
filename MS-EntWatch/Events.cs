@@ -35,10 +35,12 @@ namespace MS_EntWatch
             {
                 LogManager.SystemAction("EntWatch.Info.ChangeMap", true, _modSharp!.GetMapName()!);
             });
+            EW.GetorCreateHudLayout();
         }
 
         private static void OnMapEnd_Listener()
         {
+            EW.RemoveHudLayout();
             EW.CleanData();
             if (EW.g_Timer != null)
             {
@@ -90,8 +92,7 @@ namespace MS_EntWatch
                 if (entity.AsBaseWeapon() is { } weapon) EW.WeaponIsItem(weapon);
             }
 
-            else if (string.Equals(entity.Classname, "func_button") || string.Equals(entity.Classname, "func_rot_button") ||
-            string.Equals(entity.Classname, "func_physbox") || entity.Classname.StartsWith("func_door")) //+func_door_rotating
+            else if (EW.HookOutput_CheckTrackedClasses(entity.Classname))
                 EW.ButtonForItem(entity);
 
             else if (string.Equals(entity.Classname, "math_counter"))
@@ -114,8 +115,7 @@ namespace MS_EntWatch
                 }
             }
 
-            else if (string.Equals(entity.Classname, "func_button") || string.Equals(entity.Classname, "func_rot_button") ||
-            string.Equals(entity.Classname, "func_physbox") || entity.Classname.StartsWith("func_door")) //+func_door_rotating
+            else if (EW.HookOutput_CheckTrackedClasses(entity.Classname))
             {
                 foreach (Item ItemTest in EW.g_ItemList.ToList())
                 {
@@ -155,90 +155,29 @@ namespace MS_EntWatch
 
             if (client.GetPlayerController() is { } player && EW.CheckDictionary(client))
             {
-                //Position
-                if (cp.GetCookie(client.SteamId, "EW_HUD_Pos") is { } cookie_hud_pos)
+                //HUD Show
+                if (cp.GetCookie(client.SteamId, "EW_HUD_Show") is { } cookie_hud_show)
                 {
-                    string sValue = cookie_hud_pos.GetString();
-                    bool bDefault = false;
-                    if (!string.IsNullOrEmpty(sValue))
-                    {
-                        string[] Pos = sValue.Replace(',', '.').Split(['_']);
-                        if (Pos.Length == 3 && Pos[0] != null && Pos[1] != null && Pos[2] != null)
-                        {
-                            if (!float.TryParse(Pos[0], NumberStyles.Any, EW.cultureEN, out float fX)) { fX = -6.5f; }
-                            if (!float.TryParse(Pos[1], NumberStyles.Any, EW.cultureEN, out float fY)) { fY = 2.0f; }
-                            if (!float.TryParse(Pos[2], NumberStyles.Any, EW.cultureEN, out float fZ)) { fZ = 7.0f; }
-                            EW.g_EWPlayer[client].HudPlayer.vecEntity = new(fX, fY, fZ);
-                        }
-                        else bDefault = true;
-                    }
-                    else bDefault = true;
-
-                    if (bDefault)
-                    {
-                        cp.SetCookie(client.SteamId, "EW_HUD_Pos", "-6.5_2_7");
-                        EW.g_EWPlayer[client].HudPlayer.vecEntity = new(-6.5f, 2.0f, 7.0f);
-                    }
+                    string sValue = cookie_hud_show.GetString();
+                    if (string.IsNullOrEmpty(sValue)) EW.g_EWPlayer[client].HudPlayer.bShow = true;
+                    else EW.g_EWPlayer[client].HudPlayer.bShow = !string.Equals(sValue, "0");
                 }
                 else
                 {
-                    cp.SetCookie(client.SteamId, "EW_HUD_Pos", "-6.5_2_7");
-                    EW.g_EWPlayer[client].HudPlayer.vecEntity = new(-6.5f, 2.0f, 7.0f);
-                }
-                //Color
-                if (cp.GetCookie(client.SteamId, "EW_HUD_Color") is { } cookie_hud_color)
-                {
-                    string sValue = cookie_hud_color.GetString();
-                    bool bDefault = false;
-                    if (!string.IsNullOrEmpty(sValue))
-                    {
-                        string[] Pos = sValue.Split(['_']);
-                        if (Pos.Length == 4 && Pos[0] != null && Pos[1] != null && Pos[2] != null && Pos[3] != null)
-                        {
-                            if (!byte.TryParse(Pos[0], out byte iRed)) { iRed = 255; }
-                            if (!byte.TryParse(Pos[1], out byte iGreen)) { iGreen = 255; }
-                            if (!byte.TryParse(Pos[2], out byte iBlue)) { iBlue = 255; }
-                            if (!byte.TryParse(Pos[3], out byte iAlpha)) { iAlpha = 255; }
-                            EW.g_EWPlayer[client].HudPlayer.colorEntity = new(iRed, iGreen, iBlue, iAlpha);
-                        }
-                        else bDefault = true;
-                    }
-                    else bDefault = true;
-
-                    if (bDefault)
-                    {
-                        cp.SetCookie(client.SteamId, "EW_HUD_Color", "255_255_255_255");
-                        EW.g_EWPlayer[client].HudPlayer.colorEntity = new(255, 255, 255, 255);
-                    }
-                }
-                else
-                {
-                    cp.SetCookie(client.SteamId, "EW_HUD_Color", "255_255_255_255");
-                    EW.g_EWPlayer[client].HudPlayer.colorEntity = new(255, 255, 255, 255);
+                    cp.SetCookie(client.SteamId, "EW_HUD_Show", "1");
+                    EW.g_EWPlayer[client].HudPlayer.bShow = true;
                 }
                 //Size
-                if (cp.GetCookie(client.SteamId, "EW_HUD_Size") is { } cookie_hud_size)
+                if (cp.GetCookie(client.SteamId, "EW_HUD_SizeType") is { } cookie_hud_size)
                 {
                     string sValue = cookie_hud_size.GetString();
-                    if (string.IsNullOrEmpty(sValue) || !Int32.TryParse(sValue, out int iValue)) iValue = 54;
+                    if (string.IsNullOrEmpty(sValue) || !byte.TryParse(sValue, out byte iValue)) iValue = 1;
                     EW.g_EWPlayer[client].HudPlayer.iSize = iValue;
                 }
                 else
                 {
-                    cp.SetCookie(client.SteamId, "EW_HUD_Size", "54");
-                    EW.g_EWPlayer[client].HudPlayer.iSize = 54;
-                }
-                //Type
-                if (cp.GetCookie(client.SteamId, "EW_HUD_Type") is { } cookie_hud_type)
-                {
-                    string sValue = cookie_hud_type.GetString();
-                    if (string.IsNullOrEmpty(sValue) || !Int32.TryParse(sValue, out int iValue)) iValue = 3;
-                    EW.g_EWPlayer[client].SwitchHud(player, iValue);
-                }
-                else
-                {
-                    cp.SetCookie(client.SteamId, "EW_HUD_Type", "3");
-                    EW.g_EWPlayer[client].SwitchHud(player, 3);
+                    cp.SetCookie(client.SteamId, "EW_HUD_Size", "1");
+                    EW.g_EWPlayer[client].HudPlayer.iSize = 1;
                 }
                 //Refresh
                 if (cp.GetCookie(client.SteamId, "EW_HUD_Refresh") is { } cookie_hud_refresh)
@@ -251,18 +190,6 @@ namespace MS_EntWatch
                 {
                     cp.SetCookie(client.SteamId, "EW_HUD_Refresh", "3");
                     EW.g_EWPlayer[client].HudPlayer.iRefresh = 3;
-                }
-                //Sheet
-                if (cp.GetCookie(client.SteamId, "EW_HUD_Sheet") is { } cookie_hud_sheet)
-                {
-                    string sValue = cookie_hud_sheet.GetString();
-                    if (string.IsNullOrEmpty(sValue) || !Int32.TryParse(sValue, out int iValue)) iValue = 5;
-                    EW.g_EWPlayer[client].HudPlayer.iSheetMax = iValue;
-                }
-                else
-                {
-                    cp.SetCookie(client.SteamId, "EW_HUD_Sheet", "5");
-                    EW.g_EWPlayer[client].HudPlayer.iSheetMax = 5;
                 }
                 //PlayerInfo Format
                 if (cp.GetCookie(client.SteamId, "EW_PInfo_Format") is { } cookie_hud_pliformat)
@@ -479,24 +406,28 @@ namespace MS_EntWatch
 
         private static EHookAction OnButtonPressed(IBaseEntity entity, IBaseEntity? activator)
         {
-            if (!EW.g_CfgLoaded || activator == null || !activator.IsValid()) return default;
+            if (!EW.g_CfgLoaded) return default;
 
-            EW.UpdateTime();
             foreach (Item ItemTest in EW.g_ItemList.ToList())
             {
                 foreach (Ability AbilityTest in ItemTest.AbilityList.ToList())
                 {
                     if (AbilityTest.Entity is { } button && button.IsValid() && entity == button)
                     {
-                        if (ItemTest.Owner is { IsValid:true } owner && owner.GetPlayerController() is { } player && player.GetPawn() is { } pawn && pawn.Index == activator.Index && ItemTest.CheckDelay() && AbilityTest.Ready())
+                        if (!ItemTest.CheckDelay() || !AbilityTest.Ready()) return EHookAction.SkipCallReturnOverride;
+                        if (activator is { IsPlayerPawn: true } actpawn && //activator PlayerPawn
+                            !(ItemTest.Owner is { IsValid: true } owner && owner.GetPlayerController()?.GetPawn()?.Index == actpawn.Index) && //Doesn't owned
+                            (entity.Classname is "func_button" or "func_rot_button" or "func_physbox" || entity.Classname.StartsWith("func_door"))) //Only buttons
+                                return EHookAction.SkipCallReturnOverride;
+                        
+                        if (activator != null && activator.IsValid()) AbilityTest.SetFilter(activator);
+                        AbilityTest.Used();
+                        if (ItemTest.Owner is { IsValid: true })
                         {
-                            AbilityTest.SetFilter(activator);
-                            AbilityTest.Used();
                             if (EW.g_Scheme != null) UI.EWChatActivity("EntWatch.Chat.Use", EW.g_Scheme.Color_use, ItemTest, ItemTest.Owner, AbilityTest);
                             EW.g_cAPI.OnUseItem(ItemTest.Name, ItemTest.Owner, AbilityTest.Name);
-                            return default;
                         }
-                        else return EHookAction.SkipCallReturnOverride;
+                        return default;
                     }
                 }
             }
@@ -509,7 +440,6 @@ namespace MS_EntWatch
 
             if (entity.PrivateVScripts.Equals("game_ui", StringComparison.OrdinalIgnoreCase) && input.Equals("invalue", StringComparison.OrdinalIgnoreCase))
             {
-                EW.UpdateTime();
                 foreach (Item ItemTest in EW.g_ItemList.ToList())
                 {
                     foreach (Ability AbilityTest in ItemTest.AbilityList.ToList())
@@ -518,7 +448,7 @@ namespace MS_EntWatch
                         {
                             if (string.Equals(AbilityTest.ButtonClass[9..], value.AsString, StringComparison.OrdinalIgnoreCase))
                             {
-                                if (ItemTest.Owner is { IsValid: true } owner && owner.GetPlayerController() is { } player && player.GetPawn() is { } pawn && pawn.Index == activator.Index && ItemTest.CheckDelay() && AbilityTest.Ready())
+                                if (ItemTest.CheckDelay() && AbilityTest.Ready() && ItemTest.Owner is { IsValid: true } owner && owner.GetPlayerController()?.GetPawn()?.Index == activator.Index)
                                 {
                                     AbilityTest.SetFilter(activator);
                                     AbilityTest.Used();

@@ -5,7 +5,7 @@ namespace MS_EntWatch.Items
     public class Ability
     {
         public string Name { get; set; }
-        public string ButtonClass { get; set; } //func_button, func_door, game_ui, func_physbox
+        public string ButtonClass { get; set; } //func_button, func_door, game_ui, func_physbox and etc
         public bool Chat_Uses { get; set; }
         public int Mode { get; set; }
         public int MaxUses { get; set; }
@@ -19,6 +19,7 @@ namespace MS_EntWatch.Items
         public bool MathDontShowMax { get; set; }
         public bool MathZero { get; set; }
         public string Filter { get; set; } // <activatorname> or <Context:1> or <$attribute>
+        public string Event { get; set; } // Need Correct ButtonClass. For standard actions, leave blank. OnPressed, OnStartTouch and etc
 
         public IBaseEntity? Entity;
         public IMathCounter? MathCounter;
@@ -42,6 +43,7 @@ namespace MS_EntWatch.Items
             MathDontShowMax = false;
             MathZero = false;
             Filter = "";
+            Event = "";
 
             Entity = null;
             MathCounter = null;
@@ -66,6 +68,7 @@ namespace MS_EntWatch.Items
             MathDontShowMax = false;
             MathZero = false;
             Filter = "";
+            Event = "";
 
             Entity = entity;
             MathCounter = null;
@@ -92,6 +95,7 @@ namespace MS_EntWatch.Items
             MathDontShowMax = cCopyAbility.MathDontShowMax;
             MathZero = cCopyAbility.MathZero;
             Filter = cCopyAbility.Filter;
+            Event = cCopyAbility.Event;
 
             Entity = null;
             MathCounter = null;
@@ -105,21 +109,17 @@ namespace MS_EntWatch.Items
         {
             if (!string.IsNullOrEmpty(Filter))
             {
-                if (activator.AsPlayerPawn() is { } pawn)
+                if (Filter[0] == '$')
                 {
-
-                    if (Filter[0] == '$')
-                    {
-                        if (Filter.Length > 1) pawn.AcceptInput("AddAttribute", null, null, Filter[1..]);
-                    }
-                    else if (Filter.Contains(':'))
-                    {
-                        pawn.AcceptInput("AddContext", null, null, Filter);
-                    }
-                    else
-                    {
-                        pawn.SetName(Filter);
-                    }
+                    if (Filter.Length > 1) activator.AcceptInput("AddAttribute", null, null, Filter[1..]);
+                }
+                else if (Filter.Contains(':'))
+                {
+                    activator.AcceptInput("AddContext", null, null, Filter);
+                }
+                else
+                {
+                    activator.SetName(Filter);
                 }
             }
         }
@@ -220,6 +220,73 @@ namespace MS_EntWatch.Items
 
                 default: return "+";
             }
+        }
+
+        public (string, byte) GetColorAndProgress()
+        {
+            switch (Mode)
+            {
+                case 2:
+                    if (fLastUse < EW.fGameTime) return ("color-green", 0);
+                    else return ("color-orange", CalculateProgress(Math.Round(fLastUse - EW.fGameTime, 0), CoolDown));
+                case 3:
+                    if (iCurrentUses < MaxUses) return ("color-lightgreen", CalculateProgress(iCurrentUses, MaxUses));
+                    else return ("color-red", 0);
+                case 4:
+                    if (fLastUse < EW.fGameTime)
+                    {
+                        if (iCurrentUses < MaxUses) return ("color-lightgreen", CalculateProgress(iCurrentUses, MaxUses));
+                        else return ("color-red", 0);
+                    }
+                    else return ("color-orange", CalculateProgress(Math.Round(fLastUse - EW.fGameTime, 0), CoolDown));
+                case 5:
+                    if (fLastUse < EW.fGameTime) return ("color-lightgreen", CalculateProgress(iCurrentUses, MaxUses));
+                    else return ("color-orange", CalculateProgress(Math.Round(fLastUse - EW.fGameTime, 0), CoolDown));
+                case 6:
+                    {
+                        if (MathCounter != null && MathCounter.IsValid())
+                        {
+                            float fValue = MathCounter.Value;
+                            if (fValue > MathCounter.MinValue)
+                            {
+                                if (MathDontShowMax) return ("color-magenta", 0);
+                                else return ("color-lightblue", CalculateProgress(fValue, MathCounter.MaxValue));
+                            }
+                            else return ("color-red", 0);
+                        }
+                        else return ("color-white", 0);
+                    }
+                case 7:
+                    {
+                        if (MathCounter != null && MathCounter.IsValid())
+                        {
+                            float fValue = MathCounter.MaxValue - MathCounter.Value;
+                            if (fValue < MathCounter.MaxValue)
+                            {
+                                if (MathDontShowMax) return ("color-magenta", 0);
+                                else return ("color-lightblue", CalculateProgress(fValue, MathCounter.MaxValue));
+                            }
+                            else return ("color-red", 0);
+                        }
+                        else return ("color-white", 0);
+                    }
+                case 8:
+                    {
+                        if (Entity != null && Entity.IsValid()) return ("color-yellow", 0);
+                        else return ("color-white", 0);
+                    }
+
+                default: return ("color-white", 0);
+            }
+        }
+
+        static byte CalculateProgress(double fCurrent, double fMax)
+        {
+            if (fMax <= 0 || double.IsNaN(fMax) || double.IsInfinity(fMax)) return 0;
+            if (fCurrent < 0) fCurrent = 0;
+            else if (fCurrent > fMax) fCurrent = fMax;
+
+            return (byte)(Math.Round(fCurrent / fMax * 20.0) * 5);
         }
 
         public bool Ready()

@@ -23,9 +23,8 @@ Notify players about entity interactions
 19. Applying filters for the activator
 20. Items spawn
 21. API for interaction with other plugins
-22. Usage GameHUD API
-23. Display in clantag
-24. Allows you to select the player display format
+22. Display in clantag
+23. Allows you to select the player display format
 
 ## Required packages:
 1. [ModSharp](https://github.com/Kxnrl/modsharp-public) (min. git132)
@@ -34,10 +33,9 @@ Notify players about entity interactions
 4. [AdminManager](https://github.com/Kxnrl/modsharp-public/tree/master/Sharp.Modules/AdminManager)
 5. [TargetingManager](https://github.com/Kxnrl/modsharp-public/tree/master/Sharp.Modules/TargetingManager)
 6. [AnyBaseLibNext](https://github.com/darkerz7/MS-AnyBaseLibNext-Shared)
-7. [GameHUD](https://github.com/darkerz7/MS-GameHUD)
 
 ## Installation:
-1. Install `ClientPreferences`, `LocalizerManager`, `AdminManager`, `TargetingManager`, `MS-AnyBaseLibNext-Shared` and `MS-GameHUD`
+1. Install `ClientPreferences`, `LocalizerManager`, `AdminManager`, `TargetingManager` and `MS-AnyBaseLibNext-Shared`
 2. Compile or copy MS-EntWatch to `sharp/modules/MS-EntWatch` folger
 3. Copy and configure the configuration file `db_config.json` and `log_config.json` to `sharp/modules/MS-EntWatch` folger
 4. Copy `EntWatch.json` to `sharp/locales` folger
@@ -79,7 +77,8 @@ Notify players about entity interactions
 				"MathNameFix": false,		//Bool, Fix the name of the math_counter (Work with flag: Preserve entity names (Don't do name fixup) ->point_template/env_entity_maker)
 				"MathFindSpawned": false,	//Bool, Search for math_counter on map after weapon spawn(e.x. The math_counter is not included in the point_template and spawns at the beginning of the round, and the weapon spawns much later than 2 seconds)
 				"MathDontShowMax": false,	//Bool, Do not show maximum value
-				"MathZero": false		//Bool, Allows pressing the button when the math_counter value is zero
+				"MathZero": false,		//Bool, Allows pressing the button when the math_counter value is zero
+				"Event": ""			//String, An event after activation of which the button will be considered pressed. ex. OnPressed, OnStartTouch and etc. Need Correct ButtonClass. For standard actions, leave blank.
 			},
 			{
 				"Name": "",
@@ -96,7 +95,8 @@ Notify players about entity interactions
 				"MathNameFix": false,
 				"MathFindSpawned": false,
 				"MathDontShowMax": false,
-				"MathZero": false
+				"MathZero": false,
+				"Event": ""
 			}
 		]
 	},
@@ -146,19 +146,18 @@ Cvar | Parameters | Description
 `ms_ewc_unbanreason` | `<string>` | Default unban reason. (Default Giving another chance)
 `ms_ewc_keep_expired_ban` | `<false-true>` | Enable/Disable keep expired bans. (Default true)
 `ms_ewc_offline_clear_time` | `<1-240>` | Time during which data is stored. (Default 30)
-`ms_ewc_clantag` | `<false-true>` | Enable/Disable to display in the ClanTag. (Default true)
-`ms_ewc_clantag_info` | `<false-true>` | Enable/Disable to display cooldown and other in the ClanTag. (Default true)
+`ms_ewc_clantag` | `<false-true>` | Enable/Disable to display in the ClanTag. (Default false)
+`ms_ewc_clantag_info` | `<false-true>` | Enable/Disable to display cooldown and other in the ClanTag. (Default false)
 `ms_ewc_endround_remove` | `<false-true>` | Enable/Disable to remove weapons after the end of the round. (Default true)
 `ms_ewc_server_lang` | `<string>` | Specify the language into which the server messages should be translated. (Default en-us)
 
 ## Commands
 Client Command | Description
 --- | ---
-`ms_hud` | Allows the player to switch the HUD (0 - Disabled, 1 - Center, 2 - Alert, 3 - WorldText)
-`ms_hudpos` | Allows the player to change the position of the HUD {X Y Z} (default: -8 2 7; min -200,0; max 200,0)
-`ms_hudsize` | Allows the player to change the size of the HUD {size} (default: 54; min 16; max 128)
+`ms_hud` | Allows the player to toggle the HUD {bool}
+`ms_hudcap` | Allows the player to toggle mouse capture {bool}
+`ms_hudsize` | Allows the player to change the size of the HUD {size} (default: 1; min 0(small); max 3(large))
 `ms_hudrefresh` | Allows the player to change the time it takes to scroll through the list {sec} (default: 3; min 1; max 10)
-`ms_hudsheet` | Allows the player to change the number of items on the sheet {count} (default: 5; min 1; max 15)
 `ms_epf` | Allows the player to change the player display format (0 - Only Nickname, 1 - Nickname and UserID, 2 - Nickname and SteamID, 3 - Nickname, UserID and SteamID)
 `ms_eup` | Allows the player to use UsePriority {bool}
 `ms_estatus` | Allows the player to view the restrictions {null/target}
@@ -233,4 +232,4 @@ after<br>
 
 ## Future plans
 1. Fixes Errors
-2. GameHUD Annoncer
+2. CustomHudLayout menu

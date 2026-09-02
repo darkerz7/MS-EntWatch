@@ -284,17 +284,17 @@ namespace MS_EntWatch
 
         readonly GetBanCommFunc GetBanComm_Handler = (sClientSteamID, client, reason, bChat, DBQuery_Result) =>
         {
-            if (DBQuery_Result.Count > 0)
+            if (DBQuery_Result is { } && DBQuery_Result.Count > 0)
             {
                 EbanPlayer target = new()
                 {
                     bBanned = true,
-                    sAdminName = DBQuery_Result[0][0],
-                    sAdminSteamID = DBQuery_Result[0][1],
-                    iDuration = Convert.ToInt32(DBQuery_Result[0][2]),
-                    iTimeStamp_Issued = Convert.ToInt32(DBQuery_Result[0][3]),
-                    sReason = DBQuery_Result[0][4],
-                    sClientName = DBQuery_Result[0][5],
+                    sAdminName = DBQuery_Result[0][0] is { } admname ? admname : "-",
+                    sAdminSteamID = DBQuery_Result[0][1] is { } admsteam ? admsteam : "-",
+                    iDuration = Convert.ToInt32(DBQuery_Result[0][2] is { } dur ? dur : "0"),
+                    iTimeStamp_Issued = Convert.ToInt32(DBQuery_Result[0][3] is { } timeiss ? timeiss : "0"),
+                    sReason = DBQuery_Result[0][4] is { } reas ? reas : "-",
+                    sClientName = DBQuery_Result[0][5] is { } clname ? clname : "-",
                     sClientSteamID = sClientSteamID
                 };
                 UnBanComm(client, null, target, reason, bChat);

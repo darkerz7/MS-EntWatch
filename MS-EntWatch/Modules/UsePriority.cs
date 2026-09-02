@@ -56,7 +56,7 @@ namespace MS_EntWatch.Modules
                 {
                     int iCountWithoutIgnore = 0;
                     foreach (Ability AbilityTest in ItemTest.AbilityList.ToList())
-                        if (!AbilityTest.Ignore && AbilityTest.Mode != 8) iCountWithoutIgnore++;
+                        if (!AbilityTest.Ignore && AbilityTest.Mode != 8 && AbilityTest.Entity != null && AbilityTest.Entity.IsValid() && (AbilityTest.Entity.Classname is "func_button" or "func_rot_button" or "func_physbox" || AbilityTest.Entity.Classname.StartsWith("func_door"))) iCountWithoutIgnore++;
                     iCount += iCountWithoutIgnore;
                     if (!ItemTest.UsePriority || iCount > 1)
                     {

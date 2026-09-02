@@ -63,8 +63,8 @@ namespace MS_EntWatch
             g_Cvar_KeepExpiredBan = _convars.CreateConVar("ms_ewc_keep_expired_ban", true, "Enable/Disable keep expired bans", ConVarFlags.None);
             g_Cvar_OfflineClearTime = _convars.CreateConVar("ms_ewc_offline_clear_time", 30, 1, 240, "Time during which data is stored (1-240)", ConVarFlags.None);
 
-            g_Cvar_ClanTag = _convars.CreateConVar("ms_ewc_clantag", true, "Enable/Disable to display in the ClanTag", ConVarFlags.None);
-            g_Cvar_ClanTagInfo = _convars.CreateConVar("ms_ewc_clantag_info", true, "Enable/Disable to display cooldown and other in the ClanTag", ConVarFlags.None);
+            g_Cvar_ClanTag = _convars.CreateConVar("ms_ewc_clantag", false, "Enable/Disable to display in the ClanTag", ConVarFlags.None);
+            g_Cvar_ClanTagInfo = _convars.CreateConVar("ms_ewc_clantag_info", false, "Enable/Disable to display cooldown and other in the ClanTag", ConVarFlags.None);
 
             g_Cvar_RemoveItemAfterRoundEnd = _convars.CreateConVar("ms_ewc_endround_remove", true, "Enable/Disable to remove weapons after the end of the round", ConVarFlags.None);
             g_Cvar_ServerLanguage = _convars.CreateConVar("ms_ewc_server_lang", "en-us", "Specify the language into which the server messages should be translated", ConVarFlags.None);
@@ -350,8 +350,8 @@ namespace MS_EntWatch
         public static bool KeepExpiredBan = true;
         public static int OfflineClearTime = 30;
 
-        public static bool ClanTag = true;
-        public static bool ClanTagInfo = true;
+        public static bool ClanTag = false;
+        public static bool ClanTagInfo = false;
 
         public static bool RemoveItemAfterRoundEnd = true;
 
