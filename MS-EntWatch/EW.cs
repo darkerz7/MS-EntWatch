@@ -223,10 +223,9 @@ namespace MS_EntWatch
 
         public static bool ButtonForItem(IBaseEntity entity)
         {
-            if (EntityParentRecursive(entity)?.AsBaseWeapon() is { } weapon && weapon.IsValid())
+            if (entity.Classname.StartsWith("func_door") && ((entity.SpawnFlags & 256) != 1)) return false;
+            if (EntityParentRecursive(entity)?.AsBaseWeapon() is { } weapon && weapon.IsValid()) // Parented weapon
             {
-                if(entity.Classname.StartsWith("func_door") && ((entity.SpawnFlags & 256) != 1)) return false;
-
                 foreach (Item ItemTest in g_ItemList.ToList())
                 {
                     if (weapon.Index == ItemTest.WeaponHandle.Index)
@@ -241,9 +240,25 @@ namespace MS_EntWatch
                                 return true;
                             }
                         }
-                        Ability abilitytest = new("", entity.Classname, true, 0, 0, 0, entity.HammerId, entity);
-                        ItemTest.AbilityList.Add(abilitytest);
+                        if (entity.Classname is "func_button" or "func_rot_button" or "func_physbox" || entity.Classname.StartsWith("func_door")) // Only the buttons create a new ability
+                        {
+                            Ability abilitytest = new("", entity.Classname, true, 0, 0, 0, entity.HammerId, entity);
+                            ItemTest.AbilityList.Add(abilitytest);
+                        }
                         return true;
+                    }
+                }
+            } else
+            {
+                foreach (Item ItemTest in g_ItemList.ToList())
+                {
+                    foreach (Ability AbilityTest in ItemTest.AbilityList.ToList())
+                    {
+                        if (string.Equals(AbilityTest.ButtonID, entity.HammerId))
+                        {
+                            if (AbilityTest.Entity == null || !AbilityTest.Entity.IsValid()) AbilityTest.Entity = entity;
+                            return true;
+                        }
                     }
                 }
             }

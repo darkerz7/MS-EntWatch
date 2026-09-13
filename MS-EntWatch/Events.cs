@@ -153,7 +153,7 @@ namespace MS_EntWatch
         {
             if (client == null || !client.IsValid || GetClientPrefs() is not { } cp || !cp.IsLoaded(client.SteamId)) return;
 
-            if (client.GetPlayerController() is { } player && EW.CheckDictionary(client))
+            if (EW.CheckDictionary(client))
             {
                 //HUD Show
                 if (cp.GetCookie(client.SteamId, "EW_HUD_Show") is { } cookie_hud_show)
