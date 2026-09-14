@@ -1,7 +1,6 @@
 ﻿using MS_EntWatch.Items;
 using Sharp.Shared.Enums;
 using Sharp.Shared.GameEntities;
-using Sharp.Shared.Objects;
 using Sharp.Shared.Units;
 
 namespace MS_EntWatch.Modules
@@ -173,6 +172,7 @@ namespace MS_EntWatch.Modules
         readonly UHudItem[] UHudArray = new UHudItem[15];
         public int iRefresh = 3;
         public byte iSize = 1;
+        public byte iPosition = 0;
         int iCurrentNumListH = 0;
         int iCurrentNumListZM = 0;
         double fNextUpdateList = EW.fGameTime - 3;
@@ -188,6 +188,20 @@ namespace MS_EntWatch.Modules
                 bCaptureEnabled = bEnabled;
                 if (bEnabled) hud.SetInputCaptureEnabled(slot, true);
                 else hud.SetInputCaptureEnabled(slot, false);
+            }
+        }
+
+        public void ChangePosition(PlayerSlot slot, byte _Position)
+        {
+            if (iPosition != _Position)
+            {
+                if (EW.GetorCreateHudLayout() is { } hud)
+                {
+                    hud.SetClassOverrideForPlayer(slot, "ew-panel", $"panel-valign-{iPosition}", HudPanelClassStatus.ForceDisable);
+                    hud.SetClassOverrideForPlayer(slot, "ew-panel", $"panel-valign-{_Position}", HudPanelClassStatus.ForceEnable);
+                }
+
+                iPosition = _Position;
             }
         }
 

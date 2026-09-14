@@ -7,7 +7,6 @@ using Sharp.Shared.GameEntities;
 using Sharp.Shared.HookParams;
 using Sharp.Shared.Objects;
 using Sharp.Shared.Types;
-using System.Globalization;
 using System.Runtime.InteropServices;
 
 namespace MS_EntWatch
@@ -176,8 +175,20 @@ namespace MS_EntWatch
                 }
                 else
                 {
-                    cp.SetCookie(client.SteamId, "EW_HUD_Size", "1");
+                    cp.SetCookie(client.SteamId, "EW_HUD_SizeType", "1");
                     EW.g_EWPlayer[client].HudPlayer.iSize = 1;
+                }
+                //Position
+                if (cp.GetCookie(client.SteamId, "EW_HUD_PosNum") is { } cookie_hud_pos)
+                {
+                    string sValue = cookie_hud_pos.GetString();
+                    if (string.IsNullOrEmpty(sValue) || !byte.TryParse(sValue, out byte iValue)) iValue = 0;
+                    EW.g_EWPlayer[client].HudPlayer.ChangePosition(client.Slot, iValue);
+                }
+                else
+                {
+                    cp.SetCookie(client.SteamId, "EW_HUD_PosNum", "0");
+                    EW.g_EWPlayer[client].HudPlayer.iPosition = 0;
                 }
                 //Refresh
                 if (cp.GetCookie(client.SteamId, "EW_HUD_Refresh") is { } cookie_hud_refresh)

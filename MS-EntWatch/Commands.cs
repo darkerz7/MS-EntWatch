@@ -12,6 +12,7 @@ namespace MS_EntWatch
             _clients!.InstallCommandCallback("hud", OnEWChangeHud);
             _clients!.InstallCommandCallback("hudcap", OnEWHudCapture);
             _clients!.InstallCommandCallback("hudsize", OnEWChangeHudSize);
+            _clients!.InstallCommandCallback("hudpos", OnEWChangeHudPos);
             _clients!.InstallCommandCallback("hudrefresh", OnEWChangeHudRefresh);
             _clients!.InstallCommandCallback("epf", OnEWChangePlayerFormat);
             _clients!.InstallCommandCallback("eup", OnEWChangeUsePriority);
@@ -23,6 +24,7 @@ namespace MS_EntWatch
             _clients!.RemoveCommandCallback("hud", OnEWChangeHud);
             _clients!.RemoveCommandCallback("hudcap", OnEWHudCapture);
             _clients!.RemoveCommandCallback("hudsize", OnEWChangeHudSize);
+            _clients!.RemoveCommandCallback("hudpos", OnEWChangeHudPos);
             _clients!.RemoveCommandCallback("hudrefresh", OnEWChangeHudRefresh);
             _clients!.RemoveCommandCallback("epf", OnEWChangePlayerFormat);
             _clients!.RemoveCommandCallback("eup", OnEWChangeUsePriority);
@@ -115,22 +117,54 @@ namespace MS_EntWatch
                 return ECommandAction.Stopped;
             }
 
-            if (client.GetPlayerController() is { } player)
+            if (!byte.TryParse(command.GetArg(1), out byte number)) number = 1;
+            if (number >= 0 && number <= 3)
             {
-                if (!byte.TryParse(command.GetArg(1), out byte number)) number = 1;
-                if (number >= 0 && number <= 3)
-                {
-                    EW.g_EWPlayer[client].HudPlayer.iSize = number;
+                EW.g_EWPlayer[client].HudPlayer.iSize = number;
                     
-                    if (GetClientPrefs() is { } cp && cp.IsLoaded(client.SteamId))
-                    {
-                        cp.SetCookie(client.SteamId, "EW_HUD_SizeType", number.ToString());
-                    }
-
-                    UI.ReplyToCommand(client, "EntWatch.Reply.Hud.Size", command.ChatTrigger, EW.g_Scheme != null ? EW.g_Scheme.Color_warning : "", EW.g_Scheme != null ? EW.g_Scheme.Color_enabled : "", number);
+                if (GetClientPrefs() is { } cp && cp.IsLoaded(client.SteamId))
+                {
+                    cp.SetCookie(client.SteamId, "EW_HUD_SizeType", number.ToString());
                 }
-                else UI.ReplyToCommand(client, "EntWatch.Reply.NotValid", command.ChatTrigger, EW.g_Scheme != null ? EW.g_Scheme.Color_warning : "");
+
+                UI.ReplyToCommand(client, "EntWatch.Reply.Hud.Size", command.ChatTrigger, EW.g_Scheme != null ? EW.g_Scheme.Color_warning : "", EW.g_Scheme != null ? EW.g_Scheme.Color_enabled : "", number);
             }
+            else UI.ReplyToCommand(client, "EntWatch.Reply.NotValid", command.ChatTrigger, EW.g_Scheme != null ? EW.g_Scheme.Color_warning : "");
+
+            return ECommandAction.Stopped;
+        }
+
+        private ECommandAction OnEWChangeHudPos(IGameClient client, StringCommand command)
+        {
+            if (!client.IsValid) return ECommandAction.Stopped;
+
+            int iArgNeed = 1;
+            string sArgHelper = "[position] (default: 0; min 0(middle); max 4(top))";
+            if (command.ArgCount < iArgNeed)
+            {
+                UI.ReplyToCommand(client, "EntWatch.Info.Error.MinArg", command.ChatTrigger, iArgNeed, command.CommandName, sArgHelper);
+                return ECommandAction.Stopped;
+            }
+
+            if (!EW.CheckDictionary(client))
+            {
+                UI.ReplyToCommand(client, "EntWatch.Info.Error.NotFoundInDictionary", command.ChatTrigger);
+                return ECommandAction.Stopped;
+            }
+            
+            if (!byte.TryParse(command.GetArg(1), out byte number)) number = 0;
+            if (number >= 0 && number <= 4)
+            {
+                EW.g_EWPlayer[client].HudPlayer.ChangePosition(client.Slot, number);
+
+                if (GetClientPrefs() is { } cp && cp.IsLoaded(client.SteamId))
+                {
+                    cp.SetCookie(client.SteamId, "EW_HUD_PosNum", number.ToString());
+                }
+
+                UI.ReplyToCommand(client, "EntWatch.Reply.Hud.PositionNum", command.ChatTrigger, EW.g_Scheme != null ? EW.g_Scheme.Color_warning : "", EW.g_Scheme != null ? EW.g_Scheme.Color_enabled : "", number);
+            }
+            else UI.ReplyToCommand(client, "EntWatch.Reply.NotValid", command.ChatTrigger, EW.g_Scheme != null ? EW.g_Scheme.Color_warning : "");
 
             return ECommandAction.Stopped;
         }

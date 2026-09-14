@@ -204,6 +204,11 @@
 		"ru-ru": "{0}Размер HUD: {1}{2}",
 		"zh-cn": "{0}HUD 尺寸: {1}{2}"
 	},
+	"EntWatch.Reply.Hud.PositionNum": {
+		"en-us": "{0}Position HUD: {1}{2}",
+		"ru-ru": "{0}Позиция HUD: {1}{2}",
+		"zh-cn": "{0}HUD 位置: {1}{2}"
+	},
 	"EntWatch.Reply.Hud.Refresh": {
 		"en-us": "{0}Update HUD every {1}{2} {0}sec",
 		"ru-ru": "{0}HUD обновляется каждые {1}{2} {0}секунд",

@@ -157,6 +157,7 @@ Client Command | Description
 `ms_hud` | Allows the player to toggle the HUD {bool}
 `ms_hudcap` | Allows the player to toggle mouse capture {bool}
 `ms_hudsize` | Allows the player to change the size of the HUD {size} (default: 1; min 0(small); max 3(large))
+`ms_hudpos` | Allows the player to change the position of the HUD {size} (default: 0; min 0(center); max 4(top))
 `ms_hudrefresh` | Allows the player to change the time it takes to scroll through the list {sec} (default: 3; min 1; max 10)
 `ms_epf` | Allows the player to change the player display format (0 - Only Nickname, 1 - Nickname and UserID, 2 - Nickname and SteamID, 3 - Nickname, UserID and SteamID)
 `ms_eup` | Allows the player to use UsePriority {bool}
