@@ -1,6 +1,7 @@
 ﻿using MS_EntWatch.Items;
 using Sharp.Shared.Enums;
 using Sharp.Shared.GameEntities;
+using Sharp.Shared.Objects;
 using Sharp.Shared.Units;
 
 namespace MS_EntWatch.Modules
@@ -242,6 +243,8 @@ namespace MS_EntWatch.Modules
                     hud.SetClassOverrideForPlayer(HudPlayer.PlayerSlot, "ew-panel", "ew-hide", HudPanelClassStatus.ForceDisable);
                     hud.SetClassOverrideForPlayer(HudPlayer.PlayerSlot, "ew-panel", "ew-show", HudPanelClassStatus.ForceEnable);
 
+                    int iPlFormat = HudPlayer.GetGameClient() is { } HudClient && EW.CheckDictionary(HudClient) ? EW.g_EWPlayer[HudClient].PFormatPlayer : Cvar.PlayerFormat;
+
                     byte iCurrentNumHUD = 0;
                     bool bNextUpdateSync = true;
                     if (ListShowH.Count > 0)
@@ -290,7 +293,7 @@ namespace MS_EntWatch.Modules
                                 }
                             }
                             string sOwnerSteam = "";
-                            if (ListShowH[i].Owner is { } client) sOwnerSteam = $"#{client.UserId}|#{EW.ConvertSteamID64ToSteamID(client.SteamId.ToString())}";
+                            if (ListShowH[i].Owner is { } client) sOwnerSteam = PlayerInfoHUDFormat(client, iPlFormat);
                             
                             UHudArray[iCurrentNumHUD].SetButtonItem(hud, HudPlayer);
                             UHudArray[iCurrentNumHUD++].ChangeValue(hud, HudPlayer, ListShowH[i].ShortName, GetCSSClassColor(ListShowH[i].Color), iSize, sAbilityMessage, ColorAbilityProgress.Item1, $"{ListShowH[i].Owner?.Name}", "color-white", sOwnerSteam, "color-grey", ColorAbilityProgress.Item2);
@@ -349,7 +352,7 @@ namespace MS_EntWatch.Modules
                                 }
                             }
                             string sOwnerSteam = "";
-                            if (ListShowZM[i].Owner is { } client) sOwnerSteam = $"#{client.UserId}|#{EW.ConvertSteamID64ToSteamID(client.SteamId.ToString())}";
+                            if (ListShowZM[i].Owner is { } client) sOwnerSteam = PlayerInfoHUDFormat(client, iPlFormat);
 
                             UHudArray[iCurrentNumHUD].SetButtonItem(hud, HudPlayer);
                             UHudArray[iCurrentNumHUD++].ChangeValue(hud, HudPlayer, ListShowZM[i].ShortName, GetCSSClassColor(ListShowZM[i].Color), iSize, sAbilityMessage, ColorAbilityProgress.Item1, $"{ListShowZM[i].Owner?.Name}", "color-white", sOwnerSteam, "color-grey", ColorAbilityProgress.Item2);
@@ -363,6 +366,17 @@ namespace MS_EntWatch.Modules
                     for (int i = iCurrentNumHUD; i < UHudArray.Length; i++) UHudArray[i].SetButtonNull(hud, HudPlayer);
                 }
             }
+        }
+
+        static string PlayerInfoHUDFormat(IGameClient client, int iType)
+        {
+            return iType switch
+            {
+                1 => $"#{client.UserId}",
+                2 => $"#{EW.ConvertSteamID64ToSteamID(client.SteamId.ToString())}",
+                3 => $"#{client.UserId}|#{EW.ConvertSteamID64ToSteamID(client.SteamId.ToString())}",
+                _ => ""
+            };
         }
 
         public static string GetCSSClassColor(string color)
