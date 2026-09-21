@@ -47,7 +47,7 @@ namespace MS_EntWatch.Helpers
                 {
                     foreach (var client in All())
                     {
-                        if (raw.Equals(EW.ConvertSteamID64ToSteamID(client.SteamId.ToString()), StringComparison.OrdinalIgnoreCase))
+                        if (raw.Equals(EW.ConvertSteamID64ToSteamID(client.SteamId), StringComparison.OrdinalIgnoreCase))
                         {
                             return [client];
                         }

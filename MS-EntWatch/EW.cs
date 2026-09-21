@@ -387,12 +387,12 @@ namespace MS_EntWatch
             g_CustomHudLayout = null;
         }
 
-        public static string? ConvertSteamID64ToSteamID(string steamId64)
+        public static string? ConvertSteamID64ToSteamID(Sharp.Shared.Units.SteamID steamId64)
         {
-            if (ulong.TryParse(steamId64, out var communityId) && communityId > 76561197960265728)
+            if (steamId64 > 76561197960265728)
             {
-                var authServer = (communityId - 76561197960265728) % 2;
-                var authId = (communityId - 76561197960265728 - authServer) / 2;
+                var authServer = (steamId64 - 76561197960265728) % 2;
+                var authId = (steamId64 - 76561197960265728 - authServer) / 2;
                 return $"STEAM_0:{authServer}:{authId}";
             }
             return null;

@@ -146,8 +146,8 @@ namespace MS_EntWatch.Helpers
                 string[] sResult = new string[4];
                 sResult[0] = $"{EW.g_Scheme?.Color_name}{ReplaceSpecial(client.Name)}{EW.g_Scheme?.Color_warning}";
                 sResult[1] = $"{sResult[0]}[{EW.g_Scheme?.Color_steamid}#{client.UserId}{EW.g_Scheme?.Color_warning}]";
-                sResult[2] = $"{sResult[0]}[{EW.g_Scheme?.Color_steamid}#{EW.ConvertSteamID64ToSteamID(client.SteamId.ToString())}{EW.g_Scheme?.Color_warning}]";
-                sResult[3] = $"{sResult[0]}[{EW.g_Scheme?.Color_steamid}#{client.UserId}{EW.g_Scheme?.Color_warning}|{EW.g_Scheme?.Color_steamid}#{EW.ConvertSteamID64ToSteamID(client.SteamId.ToString())}{EW.g_Scheme?.Color_warning}]";
+                sResult[2] = $"{sResult[0]}[{EW.g_Scheme?.Color_steamid}#{EW.ConvertSteamID64ToSteamID(client.SteamId)}{EW.g_Scheme?.Color_warning}]";
+                sResult[3] = $"{sResult[0]}[{EW.g_Scheme?.Color_steamid}#{client.UserId}{EW.g_Scheme?.Color_warning}|{EW.g_Scheme?.Color_steamid}#{EW.ConvertSteamID64ToSteamID(client.SteamId)}{EW.g_Scheme?.Color_warning}]";
                 return sResult;
             }
             return PlayerInfoFormat("Console", "Server");

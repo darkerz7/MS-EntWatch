@@ -207,7 +207,7 @@ namespace MS_EntWatch
 
             EbanPlayer ebanPlayer = (target.Online && target.Player != null) ? EW.g_EWPlayer[target.Player].BannedPlayer : new EbanPlayer();
 
-            string? sSteamID = EW.ConvertSteamID64ToSteamID(client.SteamId.ToString());
+            string? sSteamID = EW.ConvertSteamID64ToSteamID(client.SteamId);
 
             if (ebanPlayer.SetBan(UI.ReplaceSpecial(client.Name), !string.IsNullOrEmpty(sSteamID) ? sSteamID : "SERVER", UI.ReplaceSpecial(target.Name), target.SteamID, time, reason))
                 UI.ReplyToCommand(client, "EntWatch.Reply.Eban.Ban.Success", command.ChatTrigger, EW.g_Scheme.Color_warning);
@@ -262,7 +262,7 @@ namespace MS_EntWatch
                 target.iTimeStamp_Issued = EW.g_EWPlayer[clientOnline].BannedPlayer.iTimeStamp_Issued;
                 target.sReason = EW.g_EWPlayer[clientOnline].BannedPlayer.sReason;
                 target.sClientName = UI.ReplaceSpecial(clientOnline.Name);
-                string? sSteamID = EW.ConvertSteamID64ToSteamID(clientOnline.SteamId.ToString());
+                string? sSteamID = EW.ConvertSteamID64ToSteamID(clientOnline.SteamId);
                 if (string.IsNullOrEmpty(sSteamID))
                 {
                     UI.ReplyToCommand(client, "EntWatch.Reply.InvalidSteamID", command.ChatTrigger, EW.g_Scheme.Color_disabled, EW.g_Scheme.Color_name, UI.ReplaceSpecial(clientOnline.Name));
@@ -324,7 +324,7 @@ namespace MS_EntWatch
                 return;
             }
 
-            string? sSteamID = EW.ConvertSteamID64ToSteamID(client.SteamId.ToString());
+            string? sSteamID = EW.ConvertSteamID64ToSteamID(client.SteamId);
             if (!string.Equals(target.sAdminSteamID, !string.IsNullOrEmpty(sSteamID) ? sSteamID : "SERVER") && AdminCommands_CheckPermission(client, PermissionUnbanOther))
             {
                 UI.ReplyToCommand(client, "EntWatch.Reply.Eban.Access.Other", bChat, EW.g_Scheme.Color_warning);

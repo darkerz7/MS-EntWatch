@@ -226,7 +226,7 @@ namespace MS_EntWatch.Modules.Eban
         {
             if (pl.IsValid && !string.IsNullOrEmpty(sServer) && db is { bDBReady: true })
             {
-                string? sSteamID = EW.ConvertSteamID64ToSteamID(pl.SteamId.ToString());
+                string? sSteamID = EW.ConvertSteamID64ToSteamID(pl.SteamId);
                 if (!string.IsNullOrEmpty(sSteamID))
                 {
                     Task.Run(() =>
