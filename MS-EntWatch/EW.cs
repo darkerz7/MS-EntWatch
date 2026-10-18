@@ -221,48 +221,49 @@ namespace MS_EntWatch
             }
         }
 
-        public static bool ButtonForItem(IBaseEntity entity)
+        public static void ButtonForItem(IBaseEntity entity)
         {
-            if (entity.Classname.StartsWith("func_door") && ((entity.SpawnFlags & 256) != 1)) return false;
-            if (EntityParentRecursive(entity)?.AsBaseWeapon() is { } weapon && weapon.IsValid()) // Parented weapon
+            EntWatch._modSharp!.PushTimer(() =>
             {
-                foreach (Item ItemTest in g_ItemList.ToList())
+                if (entity == null || !entity.IsValid()) return; //Bad entity
+                if (entity.Classname.StartsWith("func_door") && ((entity.SpawnFlags & 256) != 1)) return;
+                if (EntityParentRecursive(entity)?.AsBaseWeapon() is { } weapon && weapon.IsValid()) // Parented weapon
                 {
-                    if (weapon.Index == ItemTest.WeaponHandle.Index)
+                    foreach (Item ItemTest in g_ItemList.ToList())
+                    {
+                        if (weapon.Index == ItemTest.WeaponHandle.Index)
+                        {
+                            foreach (Ability AbilityTest in ItemTest.AbilityList.ToList())
+                            {
+                                if (string.Equals(AbilityTest.ButtonID, entity.HammerId) || string.IsNullOrEmpty(AbilityTest.ButtonID) || string.Equals(AbilityTest.ButtonID, "0"))
+                                {
+                                    AbilityTest.Entity = entity;
+                                    AbilityTest.ButtonID = entity.HammerId;
+                                    AbilityTest.ButtonClass = entity.Classname;
+                                }
+                            }
+                            if (entity.Classname is "func_button" or "func_rot_button" or "func_physbox" || entity.Classname.StartsWith("func_door")) // Only the buttons create a new ability
+                            {
+                                Ability abilitytest = new("", entity.Classname, true, 0, 0, 0, entity.HammerId, entity);
+                                ItemTest.AbilityList.Add(abilitytest);
+                            }
+                            return;
+                        }
+                    }
+                } else
+                {
+                    foreach (Item ItemTest in g_ItemList.ToList())
                     {
                         foreach (Ability AbilityTest in ItemTest.AbilityList.ToList())
                         {
-                            if (string.Equals(AbilityTest.ButtonID, entity.HammerId) || string.IsNullOrEmpty(AbilityTest.ButtonID) || string.Equals(AbilityTest.ButtonID, "0"))
+                            if (string.Equals(AbilityTest.ButtonID, entity.HammerId))
                             {
-                                AbilityTest.Entity = entity;
-                                AbilityTest.ButtonID = entity.HammerId;
-                                AbilityTest.ButtonClass = entity.Classname;
-                                return true;
+                                if (AbilityTest.Entity == null || !AbilityTest.Entity.IsValid()) AbilityTest.Entity = entity;
                             }
                         }
-                        if (entity.Classname is "func_button" or "func_rot_button" or "func_physbox" || entity.Classname.StartsWith("func_door")) // Only the buttons create a new ability
-                        {
-                            Ability abilitytest = new("", entity.Classname, true, 0, 0, 0, entity.HammerId, entity);
-                            ItemTest.AbilityList.Add(abilitytest);
-                        }
-                        return true;
                     }
                 }
-            } else
-            {
-                foreach (Item ItemTest in g_ItemList.ToList())
-                {
-                    foreach (Ability AbilityTest in ItemTest.AbilityList.ToList())
-                    {
-                        if (string.Equals(AbilityTest.ButtonID, entity.HammerId))
-                        {
-                            if (AbilityTest.Entity == null || !AbilityTest.Entity.IsValid()) AbilityTest.Entity = entity;
-                            return true;
-                        }
-                    }
-                }
-            }
-            return false;
+            }, 0.2f, GameTimerFlags.StopOnRoundEnd);
         }
 
         public static IBaseEntity? EntityParentRecursive(IBaseEntity entity)
