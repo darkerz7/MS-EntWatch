@@ -53,7 +53,6 @@ namespace MS_EntWatch
             EW.g_ItemList.Clear();
             foreach (var client in _clients!.GetGameClients(true).ToArray())
             {
-                if (client.GetPlayerController() is { } player) ClanTag.RemoveClanTag(player);
                 if (EW.CheckDictionary(client))
                 {
                     EW.g_EWPlayer[client].BannedPlayer.bBanTrigger = EW.g_EWPlayer[client].BannedPlayer.bBanned;
@@ -254,7 +253,6 @@ namespace MS_EntWatch
                     ItemTest.Owner = null;
                     if (EW.g_Scheme != null) UI.EWChatActivity("EntWatch.Chat.Disconnect", EW.g_Scheme.Color_disconnect, ItemTest, client);
                     EW.g_cAPI.OnPlayerDisconnectWithItem(ItemTest.Name, client);
-                    if (client.GetPlayerController() is { } player) ClanTag.RemoveClanTag(player);
                     ItemTest.EnableGlow();
                     if (!ItemTest.ForceDrop)
                     {
@@ -279,7 +277,6 @@ namespace MS_EntWatch
                         if (EW.CheckDictionary(@params.Client)) EW.g_EWPlayer[@params.Client].UsePriorityPlayer.UpdateCountButton(@params.Client);
                         if (EW.g_Scheme != null) UI.EWChatActivity("EntWatch.Chat.Death", EW.g_Scheme.Color_death, ItemTest, @params.Client);
                         EW.g_cAPI.OnPlayerDeathWithItem(ItemTest.Name, @params.Client);
-                        ClanTag.RemoveClanTag(@params.Controller);
                         ItemTest.EnableGlow();
                         if (!ItemTest.ForceDrop)
                         {
@@ -318,7 +315,6 @@ namespace MS_EntWatch
                         if (EW.CheckDictionary(client)) EW.g_EWPlayer[client].UsePriorityPlayer.UpdateCountButton(client);
                         if (EW.g_Scheme != null) UI.EWChatActivity("EntWatch.Chat.Pickup", EW.g_Scheme.Color_pickup, ItemTest, ItemTest.Owner);
                         EW.g_cAPI.OnPickUpItem(ItemTest.Name, client);
-                        ClanTag.UpdatePickUp(ItemTest);
                         ItemTest.DisableGlow();
                         foreach (OfflineBan OfflineTest in EW.g_OfflinePlayer.ToList())
                         {
@@ -350,7 +346,6 @@ namespace MS_EntWatch
                             if (EW.CheckDictionary(client)) EW.g_EWPlayer[client].UsePriorityPlayer.UpdateCountButton(client);
                             if (EW.g_Scheme != null) UI.EWChatActivity("EntWatch.Chat.Drop", EW.g_Scheme.Color_drop, ItemTest, client);
                             EW.g_cAPI.OnDropItem(ItemTest.Name, client);
-                            ClanTag.RemoveClanTag(player);
                             ItemTest.EnableGlow();
                         }
                         return;
@@ -415,7 +410,7 @@ namespace MS_EntWatch
             return CBaseTrigger_PassesTriggerFilters(@ent, @act);
         }
 
-        private static EHookAction OnButtonPressed(IBaseEntity entity, IBaseEntity? activator)
+        private static EHookAction OnButtonPressed(IBaseEntity entity, IBaseEntity? activator, string output)
         {
             if (!EW.g_CfgLoaded) return default;
 
@@ -423,7 +418,7 @@ namespace MS_EntWatch
             {
                 foreach (Ability AbilityTest in ItemTest.AbilityList.ToList())
                 {
-                    if (AbilityTest.Entity is { } button && button.IsValid() && entity == button)
+                    if (AbilityTest.Entity is { } button && button.IsValid() && entity == button && (string.IsNullOrEmpty(AbilityTest.Event) || string.Equals(output, AbilityTest.Event, StringComparison.OrdinalIgnoreCase)))
                     {
                         if (!ItemTest.CheckDelay() || !AbilityTest.Ready()) return EHookAction.SkipCallReturnOverride;
                         if (activator is { IsPlayerPawn: true } actpawn && //activator PlayerPawn
@@ -500,7 +495,6 @@ namespace MS_EntWatch
             if (!EW.g_CfgLoaded) return;
 
             EW.ShowHud();
-            ClanTag.UpdateClanTag();
         }
 
         public static void TimerRetry() => EbanDB.CheckConnection();

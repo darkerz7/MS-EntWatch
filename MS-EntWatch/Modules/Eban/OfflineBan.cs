@@ -85,11 +85,11 @@ namespace MS_EntWatch.Modules.Eban
             OfflineBan? target = null;
             if (sTarget.StartsWith("#steam_", StringComparison.OrdinalIgnoreCase))
             {
-                string sTargetSteamID = sTarget[1..].ToLower();
+                string sTargetSteamID = sTarget[1..];
                 //steamid
                 foreach (OfflineBan OfflineTest in EW.g_OfflinePlayer.ToList())
                 {
-                    if (!OfflineTest.Online && string.Equals(OfflineTest.SteamID.ToLower(), sTargetSteamID))
+                    if (!OfflineTest.Online && string.Equals(OfflineTest.SteamID, sTargetSteamID, StringComparison.OrdinalIgnoreCase))
                     {
                         target = OfflineTest;
                         break;

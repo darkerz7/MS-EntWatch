@@ -76,8 +76,8 @@ namespace MS_EntWatch.Helpers
             if (string.IsNullOrEmpty(CfgTest.Type) || string.IsNullOrEmpty(CfgTest.Send) || string.IsNullOrEmpty(CfgTest.Lang)) return;
 
             byte iSend = 0;
-            if (string.Equals(CfgTest.Type.ToLower(), "file")) { iSend = 1; }
-            if (string.Equals(CfgTest.Type.ToLower(), "discord")) { iSend = 2; }
+            if (string.Equals(CfgTest.Type, "file", StringComparison.OrdinalIgnoreCase)) { iSend = 1; }
+            if (string.Equals(CfgTest.Type, "discord", StringComparison.OrdinalIgnoreCase)) { iSend = 2; }
 
             if (iSend == 1) CfgTest.Send = ReplaceInvalid(CfgTest.Send);
             else if (iSend == 2) { if (!CfgTest.Send.StartsWith("https://discord.com/api/webhooks/")) return; }
@@ -89,7 +89,7 @@ namespace MS_EntWatch.Helpers
 
             foreach (LogCfg cfg in LM_CFG.ToList())
             {
-                if (string.Equals(CfgTest.Type.ToLower(), cfg.Type.ToLower()) && string.Equals(CfgTest.Send, cfg.Send))
+                if (string.Equals(CfgTest.Type, cfg.Type, StringComparison.OrdinalIgnoreCase) && string.Equals(CfgTest.Send, cfg.Send))
                 {
                     if (iSend == 2 && CultureInfo.GetCultureInfo(CfgTest.Lang) != CultureInfo.GetCultureInfo(cfg.Lang)) continue;
                     if (CfgTest.ItemInfo) cfg.ItemInfo = true;
@@ -134,8 +134,8 @@ namespace MS_EntWatch.Helpers
                 if (cfg.ItemInfo)
                 {
                     string sMsg = UI.LocalizerFormat(CultureInfo.GetCultureInfo(cfg.Lang), sMessage, arg);
-                    if (string.Equals(cfg.Type.ToLower(), "file") && cfg.LWritter != null) cfg.LWritter.Information(sMsg);
-                    else if (string.Equals(cfg.Type.ToLower(), "discord"))
+                    if (string.Equals(cfg.Type, "file", StringComparison.OrdinalIgnoreCase) && cfg.LWritter != null) cfg.LWritter.Information(sMsg);
+                    else if (string.Equals(cfg.Type, "discord", StringComparison.OrdinalIgnoreCase))
                     {
                         Task.Run(async () =>
                         {
@@ -153,8 +153,8 @@ namespace MS_EntWatch.Helpers
                 if (cfg.AdminInfo)
                 {
                     string sMsg = UI.LocalizerFormat(CultureInfo.GetCultureInfo(cfg.Lang), sMessage, arg);
-                    if (string.Equals(cfg.Type.ToLower(), "file") && cfg.LWritter != null) cfg.LWritter.Information(sMsg);
-                    else if (string.Equals(cfg.Type.ToLower(), "discord"))
+                    if (string.Equals(cfg.Type, "file", StringComparison.OrdinalIgnoreCase) && cfg.LWritter != null) cfg.LWritter.Information(sMsg);
+                    else if (string.Equals(cfg.Type, "discord", StringComparison.OrdinalIgnoreCase))
                     {
                         Task.Run(async () =>
                         {
@@ -172,8 +172,8 @@ namespace MS_EntWatch.Helpers
                 if (cfg.SystemInfo)
                 {
                     string sMsg = UI.LocalizerFormat(CultureInfo.GetCultureInfo(cfg.Lang), sMessage, arg);
-                    if (string.Equals(cfg.Type.ToLower(), "file") && cfg.LWritter != null) cfg.LWritter.Information(sMsg);
-                    else if (string.Equals(cfg.Type.ToLower(), "discord"))
+                    if (string.Equals(cfg.Type, "file", StringComparison.OrdinalIgnoreCase) && cfg.LWritter != null) cfg.LWritter.Information(sMsg);
+                    else if (string.Equals(cfg.Type, "discord", StringComparison.OrdinalIgnoreCase))
                     {
                         Task.Run(async () =>
                         {
@@ -191,8 +191,8 @@ namespace MS_EntWatch.Helpers
                 if (cfg.CvarInfo)
                 {
                     string sMsg = UI.LocalizerFormat(CultureInfo.GetCultureInfo(cfg.Lang), "EntWatch.Cvar.Notify", sCvarName, sCvarValue);
-                    if (string.Equals(cfg.Type.ToLower(), "file") && cfg.LWritter != null) cfg.LWritter.Information(sMsg);
-                    else if (string.Equals(cfg.Type.ToLower(), "discord"))
+                    if (string.Equals(cfg.Type, "file", StringComparison.OrdinalIgnoreCase) && cfg.LWritter != null) cfg.LWritter.Information(sMsg);
+                    else if (string.Equals(cfg.Type, "discord", StringComparison.OrdinalIgnoreCase))
                     {
                         Task.Run(async () =>
                         {

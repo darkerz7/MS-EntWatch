@@ -23,8 +23,7 @@ Notify players about entity interactions
 19. Applying filters for the activator
 20. Items spawn
 21. API for interaction with other plugins
-22. Display in clantag
-23. Allows you to select the player display format
+22. Allows you to select the player display format
 
 ## Required packages:
 1. [ModSharp](https://github.com/Kxnrl/modsharp-public) (min. git132)
@@ -146,8 +145,6 @@ Cvar | Parameters | Description
 `ms_ewc_unbanreason` | `<string>` | Default unban reason. (Default Giving another chance)
 `ms_ewc_keep_expired_ban` | `<false-true>` | Enable/Disable keep expired bans. (Default true)
 `ms_ewc_offline_clear_time` | `<1-240>` | Time during which data is stored. (Default 30)
-`ms_ewc_clantag` | `<false-true>` | Enable/Disable to display in the ClanTag. (Default false)
-`ms_ewc_clantag_info` | `<false-true>` | Enable/Disable to display cooldown and other in the ClanTag. (Default false)
 `ms_ewc_endround_remove` | `<false-true>` | Enable/Disable to remove weapons after the end of the round. (Default true)
 `ms_ewc_server_lang` | `<string>` | Specify the language into which the server messages should be translated. (Default en-us)
 

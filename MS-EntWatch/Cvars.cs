@@ -29,8 +29,6 @@ namespace MS_EntWatch
             g_Cvar_UnBanReason,
             g_Cvar_KeepExpiredBan,
             g_Cvar_OfflineClearTime,
-            g_Cvar_ClanTag,
-            g_Cvar_ClanTagInfo,
             g_Cvar_RemoveItemAfterRoundEnd,
             g_Cvar_ServerLanguage;
 
@@ -63,9 +61,6 @@ namespace MS_EntWatch
             g_Cvar_KeepExpiredBan = _convars.CreateConVar("ms_ewc_keep_expired_ban", true, "Enable/Disable keep expired bans", ConVarFlags.None);
             g_Cvar_OfflineClearTime = _convars.CreateConVar("ms_ewc_offline_clear_time", 30, 1, 240, "Time during which data is stored (1-240)", ConVarFlags.None);
 
-            g_Cvar_ClanTag = _convars.CreateConVar("ms_ewc_clantag", false, "Enable/Disable to display in the ClanTag", ConVarFlags.None);
-            g_Cvar_ClanTagInfo = _convars.CreateConVar("ms_ewc_clantag_info", false, "Enable/Disable to display cooldown and other in the ClanTag", ConVarFlags.None);
-
             g_Cvar_RemoveItemAfterRoundEnd = _convars.CreateConVar("ms_ewc_endround_remove", true, "Enable/Disable to remove weapons after the end of the round", ConVarFlags.None);
             g_Cvar_ServerLanguage = _convars.CreateConVar("ms_ewc_server_lang", "en-us", "Specify the language into which the server messages should be translated", ConVarFlags.None);
 
@@ -95,9 +90,6 @@ namespace MS_EntWatch
             if (g_Cvar_UnBanReason != null) _convars.InstallChangeHook(g_Cvar_UnBanReason, OnCvarChanged_UnBanReason);
             if (g_Cvar_KeepExpiredBan != null) _convars.InstallChangeHook(g_Cvar_KeepExpiredBan, OnCvarChanged_KeepExpiredBan);
             if (g_Cvar_OfflineClearTime != null) _convars.InstallChangeHook(g_Cvar_OfflineClearTime, OnCvarChanged_OfflineClearTime);
-
-            if (g_Cvar_ClanTag != null) _convars.InstallChangeHook(g_Cvar_ClanTag, OnCvarChanged_ClanTag);
-            if (g_Cvar_ClanTagInfo != null) _convars.InstallChangeHook(g_Cvar_ClanTagInfo, OnCvarChanged_ClanTagInfo);
 
             if (g_Cvar_RemoveItemAfterRoundEnd != null) _convars.InstallChangeHook(g_Cvar_RemoveItemAfterRoundEnd, OnCvarChanged_RemoveItemAfterRoundEnd);
 
@@ -132,9 +124,6 @@ namespace MS_EntWatch
             if (g_Cvar_UnBanReason != null) _convars.RemoveChangeHook(g_Cvar_UnBanReason, OnCvarChanged_UnBanReason);
             if (g_Cvar_KeepExpiredBan != null) _convars.RemoveChangeHook(g_Cvar_KeepExpiredBan, OnCvarChanged_KeepExpiredBan);
             if (g_Cvar_OfflineClearTime != null) _convars.RemoveChangeHook(g_Cvar_OfflineClearTime, OnCvarChanged_OfflineClearTime);
-
-            if (g_Cvar_ClanTag != null) _convars.RemoveChangeHook(g_Cvar_ClanTag, OnCvarChanged_ClanTag);
-            if (g_Cvar_ClanTagInfo != null) _convars.RemoveChangeHook(g_Cvar_ClanTagInfo, OnCvarChanged_ClanTagInfo);
 
             if (g_Cvar_RemoveItemAfterRoundEnd != null) _convars.RemoveChangeHook(g_Cvar_RemoveItemAfterRoundEnd, OnCvarChanged_RemoveItemAfterRoundEnd);
 
@@ -292,18 +281,6 @@ namespace MS_EntWatch
             UI.CvarChangeNotify(conVar.Name, Cvar.OfflineClearTime.ToString(), conVar.Flags.HasFlag(ConVarFlags.Notify));
         }
 
-        private void OnCvarChanged_ClanTag(IConVar conVar)
-        {
-            Cvar.ClanTag = conVar.GetBool();
-            UI.CvarChangeNotify(conVar.Name, Cvar.ClanTag.ToString(), conVar.Flags.HasFlag(ConVarFlags.Notify));
-        }
-
-        private void OnCvarChanged_ClanTagInfo(IConVar conVar)
-        {
-            Cvar.ClanTagInfo = conVar.GetBool();
-            UI.CvarChangeNotify(conVar.Name, Cvar.ClanTagInfo.ToString(), conVar.Flags.HasFlag(ConVarFlags.Notify));
-        }
-
         private void OnCvarChanged_RemoveItemAfterRoundEnd(IConVar conVar)
         {
             Cvar.RemoveItemAfterRoundEnd = conVar.GetBool();
@@ -349,9 +326,6 @@ namespace MS_EntWatch
         public static string UnBanReason = "Giving another chance";
         public static bool KeepExpiredBan = true;
         public static int OfflineClearTime = 30;
-
-        public static bool ClanTag = false;
-        public static bool ClanTagInfo = false;
 
         public static bool RemoveItemAfterRoundEnd = true;
 

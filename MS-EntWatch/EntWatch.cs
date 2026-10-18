@@ -223,7 +223,7 @@ namespace MS_EntWatch
 
         public EHookAction OnEntityFireOutput(IBaseEntity entity, string output, IBaseEntity? activator, float delay)
         {
-            return OnButtonPressed(entity, activator);
+            return OnButtonPressed(entity, activator, output);
         }
 
         public EHookAction OnEntityAcceptInput(IBaseEntity entity, string input, in EntityVariant value, IBaseEntity? activator, IBaseEntity? caller)
