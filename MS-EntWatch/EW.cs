@@ -233,6 +233,7 @@ namespace MS_EntWatch
                     {
                         if (weapon.Index == ItemTest.WeaponHandle.Index)
                         {
+                            bool bNotAdded = true;
                             foreach (Ability AbilityTest in ItemTest.AbilityList.ToList())
                             {
                                 if (string.Equals(AbilityTest.ButtonID, entity.HammerId) || string.IsNullOrEmpty(AbilityTest.ButtonID) || string.Equals(AbilityTest.ButtonID, "0"))
@@ -240,9 +241,10 @@ namespace MS_EntWatch
                                     AbilityTest.Entity = entity;
                                     AbilityTest.ButtonID = entity.HammerId;
                                     AbilityTest.ButtonClass = entity.Classname;
+                                    bNotAdded = false;
                                 }
                             }
-                            if (entity.Classname is "func_button" or "func_rot_button" or "func_physbox" || entity.Classname.StartsWith("func_door")) // Only the buttons create a new ability
+                            if (bNotAdded && (entity.Classname is "func_button" or "func_rot_button" or "func_physbox" || entity.Classname.StartsWith("func_door"))) // Only the buttons create a new ability
                             {
                                 Ability abilitytest = new("", entity.Classname, true, 0, 0, 0, entity.HammerId, entity);
                                 ItemTest.AbilityList.Add(abilitytest);

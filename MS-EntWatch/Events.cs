@@ -1,6 +1,5 @@
 ﻿using MS_EntWatch.Helpers;
 using MS_EntWatch.Items;
-using MS_EntWatch.Modules;
 using MS_EntWatch.Modules.Eban;
 using Sharp.Shared.Enums;
 using Sharp.Shared.GameEntities;
@@ -433,7 +432,6 @@ namespace MS_EntWatch
                             if (EW.g_Scheme != null) UI.EWChatActivity("EntWatch.Chat.Use", EW.g_Scheme.Color_use, ItemTest, ItemTest.Owner, AbilityTest);
                             EW.g_cAPI.OnUseItem(ItemTest.Name, ItemTest.Owner, AbilityTest.Name);
                         }
-                        return default;
                     }
                 }
             }

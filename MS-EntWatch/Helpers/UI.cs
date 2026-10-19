@@ -17,7 +17,7 @@ namespace MS_EntWatch.Helpers
                 LogManager.ItemAction(sMessage, ReplaceColorTags(sPlayerInfoFormat[3]), "", "", ItemTest.Name, (AbilityTest != null && !string.IsNullOrEmpty(AbilityTest.Name)) ? $" ({AbilityTest.Name})" : "");
             });
 
-            if (!(AbilityTest == null || ItemTest.Chat || AbilityTest.Chat_Uses)) return;
+            if (AbilityTest == null || !ItemTest.Chat || !AbilityTest.Chat_Uses) return;
 
 
             foreach (var pair in EW.g_EWPlayer)
