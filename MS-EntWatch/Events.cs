@@ -379,20 +379,29 @@ namespace MS_EntWatch
             return default;
         }
 
-        private static unsafe delegate* unmanaged<nint, nint, bool> CBaseTrigger_PassesTriggerFilters;
+        private static unsafe delegate* unmanaged<nint, nint, bool> CBaseTrigger_PassesTriggerFilters_TriggerOnce;
+        private static unsafe delegate* unmanaged<nint, nint, bool> CBaseTrigger_PassesTriggerFilters_TriggerMultiple;
+        private static unsafe delegate* unmanaged<nint, nint, bool> CBaseTrigger_PassesTriggerFilters_TriggerTeleport;
         private unsafe bool Hook_TriggersTouch()
         {
             var vFuncIndex = _modSharp!.GetGameData().GetVFuncIndex("CBaseTrigger::PassesTriggerFilters");
-            _virtualHook.Prepare("server", "CTriggerOnce", vFuncIndex, (nint)(delegate* unmanaged<nint, nint, bool>)(&Hook_CBaseTrigger_PassesTriggerFilters));
-            if (!_virtualHook.Install()) return false;
-            _virtualHook.Prepare("server", "CTriggerMultiple", vFuncIndex, (nint)(delegate* unmanaged<nint, nint, bool>)(&Hook_CBaseTrigger_PassesTriggerFilters));
-            if (!_virtualHook.Install()) return false;
-            _virtualHook.Prepare("server", "CTriggerTeleport", vFuncIndex, (nint)(delegate* unmanaged<nint, nint, bool>)(&Hook_CBaseTrigger_PassesTriggerFilters));
-            if (!_virtualHook.Install()) return false;
-            CBaseTrigger_PassesTriggerFilters = (delegate* unmanaged<nint, nint, bool>)_virtualHook.Trampoline;
+            var callback = (nint)(delegate* unmanaged<nint, nint, bool>)(&Hook_CBaseTrigger_PassesTriggerFilters);
+
+            _virtualHook_TriggerOnce.Prepare("server", "CTriggerOnce", vFuncIndex, callback);
+            if (!_virtualHook_TriggerOnce.Install()) return false;
+            CBaseTrigger_PassesTriggerFilters_TriggerOnce = (delegate* unmanaged<nint, nint, bool>)_virtualHook_TriggerOnce.Trampoline;
+
+            _virtualHook_TriggerMultiple.Prepare("server", "CTriggerMultiple", vFuncIndex, callback);
+            if (!_virtualHook_TriggerMultiple.Install()) return false;
+            CBaseTrigger_PassesTriggerFilters_TriggerMultiple = (delegate* unmanaged<nint, nint, bool>)_virtualHook_TriggerMultiple.Trampoline;
+
+            _virtualHook_TriggerTeleport.Prepare("server", "CTriggerTeleport", vFuncIndex, callback);
+            if (!_virtualHook_TriggerTeleport.Install()) return false;
+            CBaseTrigger_PassesTriggerFilters_TriggerTeleport = (delegate* unmanaged<nint, nint, bool>)_virtualHook_TriggerTeleport.Trampoline;
 
             return true;
         }
+
         [UnmanagedCallersOnly]
         private static unsafe bool Hook_CBaseTrigger_PassesTriggerFilters(nint @ent, nint @act)
         {
@@ -406,7 +415,14 @@ namespace MS_EntWatch
                     if (!string.IsNullOrEmpty(ItemTest.TriggerID) && !string.Equals(ItemTest.TriggerID, "0") && string.Equals(ItemTest.TriggerID, entity.HammerId)) return false;
                 }
             }
-            return CBaseTrigger_PassesTriggerFilters(@ent, @act);
+
+            return entity.Classname switch
+            {
+                "trigger_once" => CBaseTrigger_PassesTriggerFilters_TriggerOnce(@ent, @act),
+                "trigger_multiple" => CBaseTrigger_PassesTriggerFilters_TriggerMultiple(@ent, @act),
+                "trigger_teleport" => CBaseTrigger_PassesTriggerFilters_TriggerTeleport(@ent, @act),
+                _ => true
+            };
         }
 
         private static EHookAction OnButtonPressed(IBaseEntity entity, IBaseEntity? activator, string output)

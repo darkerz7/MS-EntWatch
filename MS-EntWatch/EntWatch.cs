@@ -40,7 +40,9 @@ namespace MS_EntWatch
             _physicsQuery = sharedSystem.GetPhysicsQueryManager();
             _dllPath = dllPath;
             _sharpPath = sharpPath;
-            _virtualHook = _hooks.CreateVirtualHook();
+            _virtualHook_TriggerOnce = _hooks.CreateVirtualHook();
+            _virtualHook_TriggerMultiple = _hooks.CreateVirtualHook();
+            _virtualHook_TriggerTeleport = _hooks.CreateVirtualHook();
             _panorama = sharedSystem.GetPanoramaManager();
         }
 #pragma warning disable CA2211
@@ -56,7 +58,9 @@ namespace MS_EntWatch
         public static string? _dllPath;
         public static string? _sharpPath;
         private IDisposable? _callback;
-        private readonly IVirtualHook _virtualHook;
+        private readonly IVirtualHook _virtualHook_TriggerOnce;
+        private readonly IVirtualHook _virtualHook_TriggerMultiple;
+        private readonly IVirtualHook _virtualHook_TriggerTeleport;
         public static ITargetingManager? _targetingManager;
         public static IPanoramaManager? _panorama;
 #pragma warning restore CA2211
@@ -132,7 +136,9 @@ namespace MS_EntWatch
 
         public void Shutdown()
         {
-            _virtualHook.Uninstall();
+            _virtualHook_TriggerOnce.Uninstall();
+            _virtualHook_TriggerMultiple.Uninstall();
+            _virtualHook_TriggerTeleport.Uninstall();
             LogManager.UnInit();
             _modSharp!.RemoveGameListener(this);
             _entities!.RemoveEntityListener(this);
